@@ -1,0 +1,16 @@
+services:
+
+  mysql-ebs:
+    image: mysql
+    container_name: mysql-ebs
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - events_data:/var/lib/mysql
+
+volumes:
+  events_data:

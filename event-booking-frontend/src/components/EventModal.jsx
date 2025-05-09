@@ -1,9 +1,9 @@
 import moment from 'moment';
+import { useEffect, useState } from 'react';
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 
-
-export default function EventModal({isVisible, onClose, onEventUpdated}){
+export default function EventModal({isVisible, onClose, onEventUpdated, reloadTrigger}){
 
     const dateTimeProps = {
         placeholder: 'e.g. 5/5/2030 12:30PM',
@@ -28,37 +28,57 @@ export default function EventModal({isVisible, onClose, onEventUpdated}){
         for (const [key, value] of formData.entries()) {
           jsonData[key] = value;
         }
-
-        jsonData["categoryId"] = 1;
       
         console.log(JSON.stringify(jsonData));
       
         try {
-          const response = await fetch('http://localhost:8080/api/v1/events', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(jsonData)
-          });
+            const response = await fetch('http://localhost:8080/api/v1/events', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(jsonData)
+            });
       
-          const errorMsg = document.getElementById('errorMsg'); 
-      
-          if (!response.ok) {
-            const errorData = await response.json();
-            errorMsg.textContent = errorData.message || 'Something went wrong';
-            errorMsg.classList.remove('hidden');
-          } else {
-            errorMsg.classList.add('hidden');
-            // alert('Submitted successfully!');
-            onEventUpdated();
-            onClose();
-          }
+            const errorMsg = document.getElementById('errorMsg'); 
+        
+            if (!response.ok) {
+                const errorData = await response.json();
+                errorMsg.textContent = errorData.message || 'Something went wrong';
+                errorMsg.classList.remove('hidden');
+            } else {
+                errorMsg.classList.add('hidden');
+                alert('Event Added successfully!');
+                onEventUpdated();
+                onClose();
+            }
         // eslint-disable-next-line no-unused-vars
         } catch (error) {
-          const errorMsg = document.getElementById('errorMsg');
-          errorMsg.textContent = 'Network error. Please try again.';
-          errorMsg.classList.remove('hidden');
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.textContent = 'Network error. Please try again.';
+            errorMsg.classList.remove('hidden');
         }
       };
+
+
+    const [categories, setCategories] = useState([]);
+      
+
+
+    const fetchCategories = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/v1/categories');
+            const data = await response.json();
+            setCategories(data.data);
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchCategories();
+    }, [reloadTrigger]);
+
+
+
 
     if(!isVisible) return null;
     return(
@@ -99,6 +119,19 @@ export default function EventModal({isVisible, onClose, onEventUpdated}){
                         </div>
 
                         <div class="w-full px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="category">
+                                Category
+                            </label>
+                            <select 
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="categoryId">
+                                <option value="">Select a category</option>
+                                {categories.map((category) => (
+                                    <option value={category.id}>{category.name}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div class="w-full px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="description">
                             Description
                         </label>
@@ -110,7 +143,7 @@ export default function EventModal({isVisible, onClose, onEventUpdated}){
                             oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'">
                         </textarea>
 
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 mb-3 rounded cursor-pointer">Submit</button>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 mb-3 rounded cursor-pointer">Create Event</button>
                         <p id="errorMsg"  class="text-red-500 text-xs italic hidden">Please fill out this field.</p>
 
                         </div>

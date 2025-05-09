@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import AdminTableRow from "../components/AdminTableRow";
+import CategoryModal from "../components/CategoryModal";
 import { default as CrudButton, default as EventModal } from "../components/EventModal";
 import Navbar from "../components/Navbar";
 
 export default function AdminPage(){
 
     const [showEventModal, setShowEventModal] = useState(false);
+    const [showCategoryModal, setShowCategoryModal] = useState(false);
     const [events, setEvents] = useState([]);
+    const [reloadTrigger, setReloadTrigger] = useState(0);
 
 
 
@@ -24,6 +27,10 @@ export default function AdminPage(){
         fetchEvents();
     }, []);
 
+    const onCategoryUpdate = () => {
+        setReloadTrigger(prev => prev + 1);
+    }
+
     return(
         <>
             <Navbar/>
@@ -39,12 +46,12 @@ export default function AdminPage(){
                     <button onClick={() => setShowEventModal(true)} class="rounded-sm bg-blue-500 text-white font-medium p-1.5 flex items-center justify-center border-blue border-1 hover:text-blue hover:border-blue hover:bg-white cursor-pointer">
                         Create New Event
                     </button>
-                    <button onClick={() => setShowEventModal(true)} class="rounded-sm bg-green-500 text-white font-medium p-1.5 flex items-center justify-center border-green-500 border-1 hover:text-green-500 hover:border-green hover:bg-white cursor-pointer">
-                        Create New Category
+                    <button onClick={() => setShowCategoryModal(true)} class="rounded-sm bg-green-500 text-white font-medium p-1.5 flex items-center justify-center border-green-500 border-1 hover:text-green-500 hover:border-green hover:bg-white cursor-pointer">
+                        Manage Categories
                     </button>
                 </div>
-                <EventModal onEventUpdated={fetchEvents} isVisible={showEventModal} onClose={() => setShowEventModal(false)}/>
-
+                <EventModal reloadTrigger={reloadTrigger} onEventUpdated={fetchEvents} isVisible={showEventModal} onClose={() => setShowEventModal(false)}/>
+                <CategoryModal onCategoryUpdate={onCategoryUpdate} isVisible={showCategoryModal} onClose={() => setShowCategoryModal(false)}/>
 
                 <table class="table-auto border-separate border-spacing-y-4 w-full">
                     <thead>
@@ -61,7 +68,7 @@ export default function AdminPage(){
                     </thead>
                     <tbody>
                     {events.map((event, index) => (
-                        <AdminTableRow class="mb-30" key={event.id} eventId={event.id} index={index} />
+                        <AdminTableRow onEventUpdated={fetchEvents} class="mb-30" key={event.id} eventId={event.id} index={index} />
                     ))}
                     </tbody>
                 </table>

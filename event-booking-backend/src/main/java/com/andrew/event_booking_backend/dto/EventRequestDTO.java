@@ -1,5 +1,6 @@
 package com.andrew.event_booking_backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ public record EventRequestDTO(
         @NotBlank(message = "Description is required")
         String description,
 
+        @JsonFormat(pattern = "MM/dd/yyyy hh:mm a")
         @NotNull(message = "Event date is required")
         @Future(message = "Event date must be in the future")
         LocalDateTime date,

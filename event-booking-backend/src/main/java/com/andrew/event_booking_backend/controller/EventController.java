@@ -4,6 +4,7 @@ import com.andrew.event_booking_backend.dto.ApiResponse;
 import com.andrew.event_booking_backend.dto.EventRequestDTO;
 import com.andrew.event_booking_backend.entity.Event;
 import com.andrew.event_booking_backend.service.EventService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/events")
 @RequiredArgsConstructor
+@CrossOrigin
 public class EventController {
 
     private final EventService eventService;
@@ -46,7 +48,7 @@ public class EventController {
     }
 
     @PostMapping()
-    public ResponseEntity<ApiResponse<Event>> createEvent(@RequestBody EventRequestDTO eventRequestDTO){
+    public ResponseEntity<ApiResponse<Event>> createEvent(@Valid @RequestBody EventRequestDTO eventRequestDTO){
         Event event = eventService.createEvent(eventRequestDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -77,7 +79,7 @@ public class EventController {
         eventService.deleteEventById(id);
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ApiResponse<>("Event with id: " + id + "deleted successfully",
+                .body(new ApiResponse<>("Event with id: " + id + " deleted successfully",
                         HttpStatus.OK.value(),
                         LocalDateTime.now(),
                         null));

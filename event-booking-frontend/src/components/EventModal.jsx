@@ -3,10 +3,11 @@ import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 
 
-export default function EventModal({isVisible, onClose}){
+export default function EventModal({isVisible, onClose, onEventUpdated}){
 
     const dateTimeProps = {
         placeholder: 'e.g. 5/5/2030 12:30PM',
+        name: 'date'
     };
 
     const yesterday = moment().subtract( 1, 'day' );
@@ -14,13 +15,50 @@ export default function EventModal({isVisible, onClose}){
         return current.isAfter( yesterday );
     };
 
-    const handleClose = (e) => {
-        if(e.target.id === 'wrapper') onClose();
+    const handleClose = (event) => {
+        if(event.target.id === 'wrapper') onClose();
     }
     
-    const handleSubmit = (formData) => {
-        console.log(formData.get("name"))
-    }
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formEl = event.currentTarget;
+        const formData = new FormData(formEl);
+        const jsonData = {};
+      
+        for (const [key, value] of formData.entries()) {
+          jsonData[key] = value;
+        }
+
+        jsonData["categoryId"] = 1;
+      
+        console.log(JSON.stringify(jsonData));
+      
+        try {
+          const response = await fetch('http://localhost:8080/api/v1/events', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(jsonData)
+          });
+      
+          const errorMsg = document.getElementById('errorMsg'); 
+      
+          if (!response.ok) {
+            const errorData = await response.json();
+            errorMsg.textContent = errorData.message || 'Something went wrong';
+            errorMsg.classList.remove('hidden');
+          } else {
+            errorMsg.classList.add('hidden');
+            // alert('Submitted successfully!');
+            onEventUpdated();
+            onClose();
+          }
+        // eslint-disable-next-line no-unused-vars
+        } catch (error) {
+          const errorMsg = document.getElementById('errorMsg');
+          errorMsg.textContent = 'Network error. Please try again.';
+          errorMsg.classList.remove('hidden');
+        }
+      };
 
     if(!isVisible) return null;
     return(
@@ -29,14 +67,13 @@ export default function EventModal({isVisible, onClose}){
                 <h1 class="text-blue font-medium font-mont text-xl">Create New Event</h1>
                 <div class="w-full h-0.5 mt-1 bg-blue"></div>
 
-                <form action={handleSubmit} class=" w-full h-full mt-3">
+                <form onSubmit={handleSubmit} method="post" class=" w-full h-full mt-3">
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
                             Event Name
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="name" type="text" placeholder="e.g. Job Fair" />
-                        {/* <p class="text-red-500 text-xs italic">Please fill out this field.</p> */}
                         </div>
 
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -50,7 +87,7 @@ export default function EventModal({isVisible, onClose}){
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="date">
                             Date and Time
                         </label>
-                        <Datetime isValidDate={ valid } inputProps={dateTimeProps} className="w appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="date"/>
+                        <Datetime timeFormat = {"hh:mm A"} isValidDate={ valid } inputProps={dateTimeProps} className="w appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="date"/>
                         </div>
 
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -73,7 +110,8 @@ export default function EventModal({isVisible, onClose}){
                             oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'">
                         </textarea>
 
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer">Submit</button>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 mb-3 rounded cursor-pointer">Submit</button>
+                        <p id="errorMsg"  class="text-red-500 text-xs italic hidden">Please fill out this field.</p>
 
                         </div>
                     </div>

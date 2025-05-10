@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function AdminTableRow({ eventId, index, onEventUpdated}) {
+export default function AdminTableRow({ eventId, index, onEventUpdated, onEditClick}) {
     const [eventDetails, setEventDetails] = useState([]);
     const [categoryName, setCategoryName] = useState([]);
 
@@ -69,7 +69,7 @@ export default function AdminTableRow({ eventId, index, onEventUpdated}) {
             <td>{categoryName.name}</td>  
             <td class="px-2 py-1 max-w-[200px] truncate">{eventDetails.description}</td>
             <td class="flex justify-center"> 
-                <button  class="mr-2 self-end rounded-sm bg-blue-500 text-white font-medium px-1.5 flex items-center justify-center border-blue border-1 hover:text-blue hover:border-blue hover:bg-white cursor-pointer">
+                <button onClick={() => onEditClick(eventDetails)} class="mr-2 self-end rounded-sm bg-blue-500 text-white font-medium px-1.5 flex items-center justify-center border-blue border-1 hover:text-blue hover:border-blue hover:bg-white cursor-pointer">
                     Edit
                 </button>
                 <button  onClick={handleDelete} class="self-end rounded-sm bg-red-500 text-white font-medium px-1.5 flex items-center justify-center border-red-500 border-1 hover:text-red-500 hover:border-red hover:bg-white cursor-pointer">

@@ -15,7 +15,6 @@ export default function CategoryModal({isVisible, onClose, onCategoryUpdate}){
         for (const [key, value] of formData.entries()) {
           jsonData[key] = value;
         }      
-        console.log(JSON.stringify(jsonData));
       
         try {
             const response = await fetch('http://localhost:8080/api/v1/categories', {

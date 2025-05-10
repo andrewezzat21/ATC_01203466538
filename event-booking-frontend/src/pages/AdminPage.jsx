@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AdminTableRow from "../components/AdminTableRow";
 import CategoryModal from "../components/CategoryModal";
+import EditModal from "../components/EditModal";
 import { default as CrudButton, default as EventModal } from "../components/EventModal";
 import Navbar from "../components/Navbar";
 
@@ -8,7 +9,9 @@ export default function AdminPage(){
 
     const [showEventModal, setShowEventModal] = useState(false);
     const [showCategoryModal, setShowCategoryModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [events, setEvents] = useState([]);
+    const [editEventDetails, setEditEventDetails] = useState({});
     const [reloadTrigger, setReloadTrigger] = useState(0);
 
 
@@ -29,6 +32,11 @@ export default function AdminPage(){
 
     const onCategoryUpdate = () => {
         setReloadTrigger(prev => prev + 1);
+    }
+
+    const onEditClick = (eventDetails) => {
+        setShowEditModal(true);
+        setEditEventDetails(eventDetails);
     }
 
     return(
@@ -52,7 +60,7 @@ export default function AdminPage(){
                 </div>
                 <EventModal reloadTrigger={reloadTrigger} onEventUpdated={fetchEvents} isVisible={showEventModal} onClose={() => setShowEventModal(false)}/>
                 <CategoryModal onCategoryUpdate={onCategoryUpdate} isVisible={showCategoryModal} onClose={() => setShowCategoryModal(false)}/>
-
+                <EditModal eventDetails={editEventDetails} reloadTrigger={reloadTrigger} onEventUpdated={fetchEvents} isVisible={showEditModal} onClose={() => setShowEditModal(false)}/>
                 <table class="table-auto border-separate border-spacing-y-4 w-full">
                     <thead>
                         <tr>
@@ -68,7 +76,7 @@ export default function AdminPage(){
                     </thead>
                     <tbody>
                     {events.map((event, index) => (
-                        <AdminTableRow onEventUpdated={fetchEvents} class="mb-30" key={event.id} eventId={event.id} index={index} />
+                        <AdminTableRow onEditClick={onEditClick} onEventUpdated={fetchEvents} class="mb-30" key={event.id} eventId={event.id} index={index} />
                     ))}
                     </tbody>
                 </table>

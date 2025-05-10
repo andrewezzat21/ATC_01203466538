@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 
-export default function EventModal({isVisible, onClose, onEventUpdated, reloadTrigger}){
+export default function EditModal({isVisible, onClose, onEventUpdated, reloadTrigger, eventDetails}){
 
     const dateTimeProps = {
         placeholder: 'e.g. 5/5/2030 12:30PM',
@@ -55,7 +55,8 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                 errorMsg.textContent = error;
                 errorMsg.classList.remove('hidden');
             }
-        }    
+        }
+    
         const jsonData = {};
       
         for (const [key, value] of formData.entries()) {
@@ -65,8 +66,8 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
         jsonData.image = imageUrl;
           
         try {
-            const response = await fetch('http://localhost:8080/api/v1/events', {
-                method: 'POST',
+            const response = await fetch('http://localhost:8080/api/v1/events/' + eventDetails.id, {
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(jsonData)
             });
@@ -79,9 +80,10 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                 errorMsg.classList.remove('hidden');
             } else {
                 errorMsg.classList.add('hidden');
-                alert('Event Added successfully!');
+                alert('Event Edited successfully!');
                 onEventUpdated();
                 onClose();
+                window.location.reload();
             }
         // eslint-disable-next-line no-unused-vars
         } catch (error) {
@@ -116,7 +118,7 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
     return(
         <div  className="fixed inset-0 bg-black/25 backdrop-blur-sm flex justify-center items-center" id="wrapper" onClick={handleClose}>
             <div class="bg-white w-dvh h-150 flex flex-col py-5 px-10">
-                <h1 class="text-blue font-medium font-mont text-xl">Create New Event</h1>
+                <h1 class="text-blue font-medium font-mont text-xl">Edit Event</h1>
                 <div class="w-full h-0.5 mt-1 bg-blue"></div>
 
                 <form onSubmit={handleSubmit} method="post" class=" w-full h-full mt-3">
@@ -125,28 +127,28 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
                             Event Name
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="name" type="text" placeholder="e.g. Job Fair" />
+                        <input defaultValue={eventDetails.name} class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="name" type="text" placeholder="e.g. Job Fair" />
                         </div>
 
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="venue">
                             Venue
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="venue" type="text" placeholder="e.g. Assiut University" />
+                        <input defaultValue={eventDetails.venue} class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="venue" type="text" placeholder="e.g. Assiut University" />
                         </div>
 
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="date">
                             Date and Time
                         </label>
-                        <Datetime timeFormat = {"hh:mm A"} isValidDate={ valid } inputProps={dateTimeProps} className="w appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="date"/>
+                        <Datetime initialValue={new Date(eventDetails.date)} timeFormat = {"hh:mm A"} isValidDate={ valid } inputProps={dateTimeProps} className="w appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="date"/>
                         </div>
 
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
                             Price
                         </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="price" type="number" 
+                        <input defaultValue={eventDetails.price} class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="price" type="number" 
                                 placeholder="e.g. 35.99" min="0" oninput="this.value = this.value < 0 ? 0 : this.value" onwheel="this.blur()" inputmode="decimal" step="0.01"/> 
                         </div>
 
@@ -154,7 +156,7 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="category">
                                 Category
                             </label>
-                            <select 
+                            <select defaultValue={eventDetails.categoryId}
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="categoryId">
                                 <option value="">Select a category</option>
                                 {categories.map((category) => (
@@ -168,6 +170,7 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                             Description
                         </label>
                         <textarea 
+                            defaultValue={eventDetails.description}
                             class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none resize-none overflow-hidden" 
                             name="description" 
                             placeholder="e.g. Don't miss the opportunity to participate in this Job Fair at Assiut University!" 
@@ -176,9 +179,8 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                         </textarea>
                         <input type="file" name="imageFile" accept="image/*"/>
 
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 mb-3 rounded cursor-pointer">Create Event</button>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 mb-3 rounded cursor-pointer">Edit Event</button>
                         <p id="errorMsg"  class="text-red-500 text-xs italic hidden">Please fill out this field.</p>
-
                         </div>
                     </div>
                 </form>

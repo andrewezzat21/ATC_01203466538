@@ -62,7 +62,7 @@ public class EventController {
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Event>> updateEvent(
             @PathVariable Integer id,
-            @RequestBody EventRequestDTO eventRequestDTO
+            @Valid @RequestBody EventRequestDTO eventRequestDTO
     ){
         Event event = eventService.updateEvent(id, eventRequestDTO);
 

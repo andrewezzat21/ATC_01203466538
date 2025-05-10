@@ -21,6 +21,7 @@ export default function AdminPage(){
         } catch (error) {
             console.error('Error fetching events:', error);
         }
+        console.log(events)
     };
 
     useEffect(() => {

@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -19,4 +22,7 @@ public class Category {
     private Integer id;
 
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<Event> events;
 }

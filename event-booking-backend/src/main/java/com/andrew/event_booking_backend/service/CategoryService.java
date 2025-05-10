@@ -52,6 +52,10 @@ public class CategoryService {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
 
+        if (!category.getEvents().isEmpty()) {
+            throw new IllegalStateException("Cannot delete category with active events.");
+        }
+
         categoryRepository.deleteById(id);
     }
 }

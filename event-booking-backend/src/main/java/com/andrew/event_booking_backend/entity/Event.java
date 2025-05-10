@@ -1,5 +1,6 @@
 package com.andrew.event_booking_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,11 @@ public class Event {
     private Integer id;
 
     private Integer categoryId;
+
+    @ManyToOne
+    @JoinColumn(name = "categoryId", insertable = false, updatable = false)
+    @JsonIgnore
+    private Category category;
 
     private String name;
 

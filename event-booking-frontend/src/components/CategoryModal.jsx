@@ -18,31 +18,31 @@ export default function CategoryModal({isVisible, onClose, onCategoryUpdate}){
         console.log(JSON.stringify(jsonData));
       
         try {
-          const response = await fetch('http://localhost:8080/api/v1/categories', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(jsonData)
-          });
-      
-          const categoryErrorMsg = document.getElementById('categoryErrorMsg'); 
-      
-          if (!response.ok) {
-            const errorData = await response.json();
-            categoryErrorMsg.textContent = errorData.message || 'Something went wrong';
+            const response = await fetch('http://localhost:8080/api/v1/categories', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(jsonData)
+            });
+        
+            const categoryErrorMsg = document.getElementById('categoryErrorMsg'); 
+        
+            if (!response.ok) {
+                const errorData = await response.json();
+                categoryErrorMsg.textContent = errorData.message || 'Something went wrong';
+                categoryErrorMsg.classList.remove('hidden');
+            } else {
+                categoryErrorMsg.classList.add('hidden');
+                alert("Category Added Successfuly!")
+                formEl.reset();
+                await fetchCategories();
+                onCategoryUpdate();
+            }
+            // eslint-disable-next-line no-unused-vars
+            } catch (error) {
+            const categoryErrorMsg = document.getElementById('categoryErrorMsg');
+            categoryErrorMsg.textContent = 'Network error. Please try again.';
             categoryErrorMsg.classList.remove('hidden');
-          } else {
-            categoryErrorMsg.classList.add('hidden');
-            alert("Category Added Successfuly!")
-            formEl.reset();
-            await fetchCategories();
-            onCategoryUpdate();
-          }
-        // eslint-disable-next-line no-unused-vars
-        } catch (error) {
-          const categoryErrorMsg = document.getElementById('categoryErrorMsg');
-          categoryErrorMsg.textContent = 'Network error. Please try again.';
-          categoryErrorMsg.classList.remove('hidden');
-        }
+            }
       };
 
     const [categories, setCategories] = useState([]);
@@ -62,6 +62,31 @@ export default function CategoryModal({isVisible, onClose, onCategoryUpdate}){
     useEffect(() => {
         fetchCategories();
     }, []);
+
+    const deleteCategory = async (categoryId) => {
+        try {
+            const response = await fetch('http://localhost:8080/api/v1/categories/' + categoryId, {
+                method: 'DELETE',
+            });
+        
+            const categoryErrorMsg = document.getElementById('categoryErrorMsg'); 
+        
+            if (!response.ok) {
+                const errorData = await response.json();
+                categoryErrorMsg.textContent = errorData.message || 'Something went wrong';
+                categoryErrorMsg.classList.remove('hidden');
+            } else {
+                categoryErrorMsg.classList.add('hidden');
+                await fetchCategories();
+                onCategoryUpdate();
+            }
+            // eslint-disable-next-line no-unused-vars
+            } catch (error) {
+            const categoryErrorMsg = document.getElementById('categoryErrorMsg');
+            categoryErrorMsg.textContent = 'Network error. Please try again.';
+            categoryErrorMsg.classList.remove('hidden');
+        }
+    };
 
 
     if(!isVisible) return null;
@@ -84,8 +109,14 @@ export default function CategoryModal({isVisible, onClose, onCategoryUpdate}){
                 </form>
                 <div class="bg-white w-full max-h-[80vh] overflow-y-auto rounded-lg">
                     {categories.map((category) => (
-                        <div>{category.name}</div>
+                        <div class="flex justify-between items-center w-full">
+                         <div class="h-full items-center mb-5">{category.name}</div>
+                        <button onClick={() => deleteCategory(category.id)} class="rounded-sm bg-red-500 text-white font-medium px-1.5 flex items-center justify-center border-red-500 border-1 hover:text-red-500 hover:border-red hover:bg-white cursor-pointer">
+                        Delete
+                         </button>
+                        </div>
                     ))}
+
                 </div>
                 
 

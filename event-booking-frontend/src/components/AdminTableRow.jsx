@@ -63,7 +63,9 @@ export default function AdminTableRow({ eventId, index, onEventUpdated}) {
             <td>{eventDetails.name}</td>  
             <td>{eventDetails.venue}</td>  
             <td>{eventDetails.price}</td>  
-            <td>{new Date(eventDetails.date).toLocaleString()}</td>
+            <td>
+                {new Date(eventDetails.date).toLocaleDateString()} {new Date(eventDetails.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </td>
             <td>{categoryName.name}</td>  
             <td class="px-2 py-1 max-w-[200px] truncate">{eventDetails.description}</td>
             <td class="flex justify-center"> 

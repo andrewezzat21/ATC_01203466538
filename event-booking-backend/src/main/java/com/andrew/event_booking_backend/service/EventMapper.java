@@ -17,7 +17,7 @@ public class EventMapper {
                 .date(eventRequestDTO.date())
                 .venue(eventRequestDTO.venue())
                 .price(eventRequestDTO.price())
-                .image(defaultImage)
+                .image(!eventRequestDTO.image().isEmpty() ? eventRequestDTO.image() : defaultImage)
                 .build();
     }
 }

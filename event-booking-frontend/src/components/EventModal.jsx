@@ -23,12 +23,49 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
         event.preventDefault();
         const formEl = event.currentTarget;
         const formData = new FormData(formEl);
+    
+        let imageUrl = "https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+        const imageFile = formData.get('imageFile'); 
+    
+        if (imageFile && imageFile.size > 0) {
+            try {
+                const imageData = new FormData();
+                imageData.append('file', imageFile);
+                imageData.append('upload_preset', 'testupload'); 
+                const errorMsg = document.getElementById('errorMsg');
+                errorMsg.textContent = 'Uploading Image..... Please wait it takes time!';
+                errorMsg.classList.remove('hidden');
+                const res = await fetch('https://api.cloudinary.com/v1_1/diha0tqnn/image/upload', {
+                    method: 'POST',
+                    body: imageData
+                });
+        
+                if (!res.ok) {
+                    throw new Error('Image upload failed');
+                }
+        
+                const imageResponse = await res.json();
+                console.log('Image upload successful:', imageResponse);
+                imageUrl = imageResponse.secure_url;
+                errorMsg.classList.add('hidden');
+        
+            } catch (error) {
+                console.error('Error uploading image:', error);
+                const errorMsg = document.getElementById('errorMsg');
+                errorMsg.textContent = error;
+                errorMsg.classList.remove('hidden');
+            }
+        }
+        console.log(imageUrl);
+    
         const jsonData = {};
       
         for (const [key, value] of formData.entries()) {
-          jsonData[key] = value;
+            if (key !== 'imageFile') jsonData[key] = value;
         }
       
+        jsonData.image = imageUrl;
+    
         console.log(JSON.stringify(jsonData));
       
         try {
@@ -37,7 +74,7 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(jsonData)
             });
-      
+    
             const errorMsg = document.getElementById('errorMsg'); 
         
             if (!response.ok) {
@@ -56,7 +93,8 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
             errorMsg.textContent = 'Network error. Please try again.';
             errorMsg.classList.remove('hidden');
         }
-      };
+    };
+    
 
 
     const [categories, setCategories] = useState([]);
@@ -142,6 +180,7 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                             rows="3"
                             oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'">
                         </textarea>
+                        <input type="file" name="imageFile" accept="image/*"/>
 
                         <button type="submit" class="bg-blue-500 text-white px-4 py-2 mb-3 rounded cursor-pointer">Create Event</button>
                         <p id="errorMsg"  class="text-red-500 text-xs italic hidden">Please fill out this field.</p>

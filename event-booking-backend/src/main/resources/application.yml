@@ -9,9 +9,9 @@ spring:
     hibernate:
       ddl-auto: update
 
-logging:
-  level:
-    org:
-      springframework:
-        web: debug
-        security: debug
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: debug
+#        security: debug

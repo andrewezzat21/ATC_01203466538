@@ -1,30 +1,26 @@
 package com.andrew.event_booking_backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.w3c.dom.stylesheets.LinkStyle;
-
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "categories")
-public class Category {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String email;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String roles;
 
-    private String name;
-
-    @OneToMany(mappedBy = "category")
-    @JsonIgnore
-    private List<Event> events;
 }

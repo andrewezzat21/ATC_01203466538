@@ -17,8 +17,14 @@ export default function AdminPage(){
 
 
     const fetchEvents = async () => {
+        const token = localStorage.getItem('token');
         try {
-            const response = await fetch('http://localhost:8080/api/v1/events');
+            const response = await fetch('http://localhost:8080/api/v1/events',{
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             const data = await response.json();
             setEvents(data.data);
         } catch (error) {
@@ -28,7 +34,7 @@ export default function AdminPage(){
 
     useEffect(() => {
         fetchEvents();
-    }, []);
+    }, [reloadTrigger]);
 
     const onCategoryUpdate = () => {
         setReloadTrigger(prev => prev + 1);
@@ -41,7 +47,7 @@ export default function AdminPage(){
 
     return(
         <>
-            <Navbar/>
+            {/* <Navbar/> */}
             <section class="px-15 py-10">
                 <div class="flex items-center">
                     <h1 class="font-pop text-5xl font-medium">Events Dashboard</h1>

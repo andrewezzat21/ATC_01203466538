@@ -17,9 +17,10 @@ export default function CategoryModal({isVisible, onClose, onCategoryUpdate}){
         }      
       
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch('http://localhost:8080/api/v1/categories', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify(jsonData)
             });
         
@@ -49,8 +50,13 @@ export default function CategoryModal({isVisible, onClose, onCategoryUpdate}){
 
 
     const fetchCategories = async () => {
+        const token = localStorage.getItem('token');
         try {
-            const response = await fetch('http://localhost:8080/api/v1/categories');
+            const response = await fetch('http://localhost:8080/api/v1/categories',{
+                headers:{
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             const data = await response.json();
             setCategories(data.data);
         } catch (error) {
@@ -64,8 +70,12 @@ export default function CategoryModal({isVisible, onClose, onCategoryUpdate}){
 
     const deleteCategory = async (categoryId) => {
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch('http://localhost:8080/api/v1/categories/' + categoryId, {
                 method: 'DELETE',
+                headers:{
+                    'Authorization': `Bearer ${token}`
+                }
             });
         
             const categoryErrorMsg = document.getElementById('categoryErrorMsg'); 

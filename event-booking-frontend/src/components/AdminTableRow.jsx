@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 export default function AdminTableRow({ eventId, index, onEventUpdated, onEditClick}) {
     const [eventDetails, setEventDetails] = useState([]);
     const [categoryName, setCategoryName] = useState([]);
-
+    const token = localStorage.getItem('token');
     useEffect(() => {
         const fetchEventDetails = async () => {
             try {
                 const url = 'http://localhost:8080/api/v1/events/' + eventId;
-                const response = await fetch(url);
+                const response = await fetch(url, {  
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
                 const data = await response.json();
                 setEventDetails(data.data);
             } catch (error) {
@@ -18,7 +22,7 @@ export default function AdminTableRow({ eventId, index, onEventUpdated, onEditCl
 
         fetchEventDetails();
 
-    }, [eventId]);
+    },[eventId, token]);
 
     useEffect(() => {
         if (!eventDetails.categoryId) return;
@@ -26,7 +30,11 @@ export default function AdminTableRow({ eventId, index, onEventUpdated, onEditCl
         const fetchCategoryName = async () => {
             try {
                 const url = 'http://localhost:8080/api/v1/categories/' + eventDetails.categoryId;
-                const response = await fetch(url);
+                const response = await fetch(url, {  
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
                 const data = await response.json();
                 setCategoryName(data.data);
             } catch (error) {
@@ -35,13 +43,16 @@ export default function AdminTableRow({ eventId, index, onEventUpdated, onEditCl
         };
     
         fetchCategoryName();
-    }, [eventDetails.categoryId]);
+    }, [eventDetails.categoryId, token]);
 
     const handleDelete = async () => {
 
         try{
             const response = await fetch('http://localhost:8080/api/v1/events/' + eventId, {
                 method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
         
             if (!response.ok) {

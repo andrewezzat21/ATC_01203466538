@@ -1,6 +1,7 @@
 package com.andrew.event_booking_backend.controller;
 
 import com.andrew.event_booking_backend.dto.ApiResponse;
+import com.andrew.event_booking_backend.dto.LoginResponse;
 import com.andrew.event_booking_backend.dto.UserLoginDTO;
 import com.andrew.event_booking_backend.dto.UserRequestDTO;
 import com.andrew.event_booking_backend.entity.User;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1/auth")
 @CrossOrigin
 public class UserController {
 
@@ -33,15 +34,15 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<String>> login(@Valid @RequestBody UserLoginDTO userLoginDTO){
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody UserLoginDTO userLoginDTO){
 
-        String token = userService.login(userLoginDTO);
+        LoginResponse loginResponse = userService.login(userLoginDTO);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ApiResponse<>("Login Successful! ",
                         HttpStatus.OK.value(),
                         LocalDateTime.now(),
-                        token));
+                        loginResponse));
 
     }
 

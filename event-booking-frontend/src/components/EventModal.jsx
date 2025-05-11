@@ -37,7 +37,7 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                 errorMsg.classList.remove('hidden');
                 const res = await fetch('https://api.cloudinary.com/v1_1/diha0tqnn/image/upload', {
                     method: 'POST',
-                    body: imageData
+                    body: imageData,
                 });
         
                 if (!res.ok) {
@@ -65,9 +65,10 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
         jsonData.image = imageUrl;
           
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch('http://localhost:8080/api/v1/events', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify(jsonData)
             });
     
@@ -96,10 +97,15 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
     const [categories, setCategories] = useState([]);
       
 
-
     const fetchCategories = async () => {
+        const token = localStorage.getItem('token');
         try {
-            const response = await fetch('http://localhost:8080/api/v1/categories');
+            const response = await fetch('http://localhost:8080/api/v1/categories',{
+                method : "GET",
+                headers : {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             const data = await response.json();
             setCategories(data.data);
         } catch (error) {

@@ -66,9 +66,10 @@ export default function EditModal({isVisible, onClose, onEventUpdated, reloadTri
         jsonData.image = imageUrl;
           
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch('http://localhost:8080/api/v1/events/' + eventDetails.id, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify(jsonData)
             });
     
@@ -101,7 +102,10 @@ export default function EditModal({isVisible, onClose, onEventUpdated, reloadTri
 
     const fetchCategories = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/v1/categories');
+            const token = localStorage.getItem('token');
+            const response = await fetch('http://localhost:8080/api/v1/categories',{
+                headers: {'Authorization': `Bearer ${token}` },
+            });
             const data = await response.json();
             setCategories(data.data);
         } catch (error) {

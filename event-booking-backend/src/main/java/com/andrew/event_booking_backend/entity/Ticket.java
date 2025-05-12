@@ -21,7 +21,7 @@ public class Ticket {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 

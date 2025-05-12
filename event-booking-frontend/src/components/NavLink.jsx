@@ -2,6 +2,6 @@ import { Link } from "react-router-dom";
 
 export default function NavLink({to, name}){
     return(
-        <Link class="hover:text-blue ml-6 text-lg font-mont" to={to}>{name}</Link>
+        <Link className=" hover:text-white hover:opacity-75 ml-6 text-md font-mont font-light" to={to}>{name}</Link>
     );
 }

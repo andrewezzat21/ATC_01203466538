@@ -4,6 +4,7 @@ import com.andrew.event_booking_backend.dto.ApiResponse;
 import com.andrew.event_booking_backend.dto.TicketRequestDTO;
 import com.andrew.event_booking_backend.entity.Event;
 import com.andrew.event_booking_backend.entity.Ticket;
+import com.andrew.event_booking_backend.entity.User;
 import com.andrew.event_booking_backend.service.TicketService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,18 @@ public class TicketController {
                         HttpStatus.OK.value(),
                         LocalDateTime.now(),
                         events));
+
+    }
+
+    @GetMapping("/event/{eventId}")
+    public ResponseEntity<ApiResponse<List<User>>> getUsersOfEvent(@PathVariable Integer eventId) {
+        List<User> users = ticketService.getUsersOfEvent(eventId);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ApiResponse<>("All users for event with id: " + eventId,
+                        HttpStatus.OK.value(),
+                        LocalDateTime.now(),
+                        users));
 
     }
 

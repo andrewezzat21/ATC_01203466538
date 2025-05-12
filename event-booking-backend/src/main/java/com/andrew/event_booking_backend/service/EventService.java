@@ -4,6 +4,7 @@ import com.andrew.event_booking_backend.dto.EventRequestDTO;
 import com.andrew.event_booking_backend.entity.Event;
 import com.andrew.event_booking_backend.exception.EventNotFoundException;
 import com.andrew.event_booking_backend.repository.EventRepository;
+import com.andrew.event_booking_backend.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import java.util.List;
 public class EventService {
 
     private final EventRepository eventRepository;
+    private final TicketRepository ticketRepository;
     private final EventMapper eventMapper;
 
 
@@ -55,6 +57,7 @@ public class EventService {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new EventNotFoundException("Event not found with id: " + id));
 
+        ticketRepository.deleteByEventId(id);
         eventRepository.deleteById(id);
     }
 }

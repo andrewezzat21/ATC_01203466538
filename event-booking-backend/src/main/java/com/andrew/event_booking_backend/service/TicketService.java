@@ -58,4 +58,11 @@ public class TicketService {
                 .map(Ticket::getEvent)
                 .toList();
     }
+
+    public List<User> getUsersOfEvent(Integer eventId){
+        List<Ticket> tickets =  ticketRepository.findByEventId(eventId);
+        return tickets.stream()
+                .map(Ticket::getUser)
+                .toList();
+    }
 }

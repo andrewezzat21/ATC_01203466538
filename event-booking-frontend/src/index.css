@@ -9,11 +9,50 @@ body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
   padding: 0;
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-mont: "Montserrat", sans-serif;
   --font-pop: "Poppins", sans-serif;
   --font-rob: "Roboto", sans-serif;
 
-  --color-blue: #3974F5;
+  --color-blue: #116DFF;
+  --color-white: #FFFFFF;
   --color-navy: #080E20;
+
+  --animate-appear: appear 1.3s ;
+  --animate-appear2: appear2 1.7s ;
+  --animate-appear3: appear3 0.7s ;
+
+  @keyframes appear {
+    0% {
+      transform: translateY(0.3em);
+      opacity: 0;
+    },
+    100% {
+      transform: translateY(-0.3em);
+      opacity: 1;
+    }
+  }
+
+  @keyframes appear2 {
+    0% {
+      transform: translateY(0.3em);
+      opacity: 0;
+    },
+    100% {
+      transform: translateY(-0.3em);
+      opacity: 1;
+    }
+  }
+
+    @keyframes appear3 {
+    0% {
+      opacity: 0;
+    },
+    100% {
+      opacity: 1;
+    }
+  }
 }
+

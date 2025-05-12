@@ -100,7 +100,7 @@ export default function CategoryModal({isVisible, onClose, onCategoryUpdate}){
 
     if(!isVisible) return null;
     return(
-        <div className="fixed inset-0 bg-black/25 backdrop-blur-sm flex justify-center items-center" id="wrapper" onClick={handleClose}>
+        <div className="z-10 fixed inset-0 bg-black/25 backdrop-blur-sm flex justify-center items-center" id="wrapper" onClick={handleClose}>
             <div class="bg-white w-dvh h-150 flex flex-col py-5 px-10">
                 <h1 class="text-green-500 font-medium font-mont text-xl">Categories</h1>
                 <div class="w-full h-0.5 mt-1 bg-green-500"></div>

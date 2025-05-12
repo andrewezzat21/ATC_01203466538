@@ -31,6 +31,10 @@ public record EventRequestDTO(
         @Digits(integer = 8, fraction = 2, message = "Price format is invalid! e.g., 35.99")
         BigDecimal price,
 
+        @NotNull(message = "Capacity is required")
+        @Min(value = 1, message = "Capacity must be at least 1")
+        Integer capacity,
+
         String image
 
 ) { }

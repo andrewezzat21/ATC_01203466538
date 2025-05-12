@@ -44,6 +44,7 @@ public class EventService {
         event.setDate(eventRequestDTO.date());
         event.setVenue(eventRequestDTO.venue());
         event.setPrice(eventRequestDTO.price());
+        event.setCapacity(eventRequestDTO.capacity());
         if(!eventRequestDTO.image().isEmpty()) event.setImage(eventRequestDTO.image());
 
         return eventRepository.save(event);

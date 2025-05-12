@@ -43,6 +43,8 @@ public class Event {
 
     private String image;
 
+    private Integer capacity;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;

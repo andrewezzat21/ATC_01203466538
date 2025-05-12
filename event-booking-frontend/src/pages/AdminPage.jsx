@@ -74,6 +74,7 @@ export default function AdminPage(){
                             <th class="w-20 text-start">Image</th>
                             <th class="w-50 text-start">Name</th>
                             <th class="w-50 text-start">Venue</th>
+                            <th class="w-50 text-start">Capacity</th>
                             <th class="w-30 text-start">Price</th>
                             <th class="w-50 text-start">Date</th>
                             <th class="w-50 text-start">Category</th>

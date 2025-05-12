@@ -57,6 +57,7 @@ public class UserService {
                 .toList();
 
         return new LoginResponse(
+                user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
                 jwtService.generateToken(userLoginDTO.email()),

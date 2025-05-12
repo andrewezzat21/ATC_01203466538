@@ -141,19 +141,27 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="venue" type="text" placeholder="e.g. Assiut University" />
                         </div>
 
-                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="date">
                             Date and Time
                         </label>
                         <Datetime timeFormat = {"hh:mm A"} isValidDate={ valid } inputProps={dateTimeProps} className="w appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="date"/>
                         </div>
 
-                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
                             Price
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="price" type="number" 
                                 placeholder="e.g. 35.99" min="0" oninput="this.value = this.value < 0 ? 0 : this.value" onwheel="this.blur()" inputmode="decimal" step="0.01"/> 
+                        </div>
+
+                        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="capacity">
+                            Capacity
+                        </label>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="capacity" type="number" 
+                                placeholder="e.g. 100" min="0" oninput="this.value = this.value < 0 ? 0 : this.value" onwheel="this.blur()" inputmode="numeric" step="1"/> 
                         </div>
 
                         <div class="w-full px-3 mb-6 md:mb-0">

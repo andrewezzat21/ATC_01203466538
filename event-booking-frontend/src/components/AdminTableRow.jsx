@@ -73,6 +73,7 @@ export default function AdminTableRow({ eventId, index, onEventUpdated, onEditCl
             <td><img src={eventDetails.image} class="w-10 h-10 rounded"/></td>  
             <td>{eventDetails.name}</td>  
             <td>{eventDetails.venue}</td>  
+            <td>{eventDetails.capacity}</td>  
             <td>{eventDetails.price}</td>  
             <td>
                 {new Date(eventDetails.date).toLocaleDateString()} {new Date(eventDetails.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

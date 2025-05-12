@@ -10,6 +10,9 @@ export default function LoginPage() {
 
     localStorage.removeItem('token');
     localStorage.removeItem('roles');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
 
     const handleSubmit = async (event) => {
 
@@ -37,9 +40,13 @@ export default function LoginPage() {
                 errorMsg.textContent = data.message || 'Something went wrong';
                 errorMsg.classList.remove('hidden');
             } else {
+                console.log(data.data)
                 errorMsg.classList.add('hidden');
                 localStorage.setItem('token', data.data.token);
                 localStorage.setItem('roles', data.data.roles);
+                localStorage.setItem('userId', data.data.id);
+                localStorage.setItem('firstName', data.data.firstName);
+                localStorage.setItem('lastName', data.data.lastName);
                 navigate('/');
             }
         } catch (error) {

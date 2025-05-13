@@ -59,10 +59,10 @@ public class TicketService {
                 .toList();
     }
 
-    public List<User> getUsersOfEvent(Integer eventId){
-        List<Ticket> tickets =  ticketRepository.findByEventId(eventId);
+    public List<Integer> getUsersOfEvent(Integer eventId) {
+        List<Ticket> tickets = ticketRepository.findByEventId(eventId);
         return tickets.stream()
-                .map(Ticket::getUser)
+                .map(ticket -> ticket.getUser().getId())
                 .toList();
     }
 }

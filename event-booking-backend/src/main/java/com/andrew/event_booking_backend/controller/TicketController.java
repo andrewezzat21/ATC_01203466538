@@ -36,8 +36,8 @@ public class TicketController {
     }
 
     @GetMapping("/event/{eventId}")
-    public ResponseEntity<ApiResponse<List<User>>> getUsersOfEvent(@PathVariable Integer eventId) {
-        List<User> users = ticketService.getUsersOfEvent(eventId);
+    public ResponseEntity<ApiResponse<List<Integer>>> getUsersOfEvent(@PathVariable Integer eventId) {
+        List<Integer> users = ticketService.getUsersOfEvent(eventId);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ApiResponse<>("All users for event with id: " + eventId,

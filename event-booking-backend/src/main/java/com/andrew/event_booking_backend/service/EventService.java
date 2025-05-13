@@ -1,8 +1,12 @@
 package com.andrew.event_booking_backend.service;
 
+import com.andrew.event_booking_backend.dto.EventDetailsResponse;
 import com.andrew.event_booking_backend.dto.EventRequestDTO;
+import com.andrew.event_booking_backend.entity.Category;
 import com.andrew.event_booking_backend.entity.Event;
+import com.andrew.event_booking_backend.entity.User;
 import com.andrew.event_booking_backend.exception.EventNotFoundException;
+import com.andrew.event_booking_backend.repository.CategoryRepository;
 import com.andrew.event_booking_backend.repository.EventRepository;
 import com.andrew.event_booking_backend.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +20,8 @@ import java.util.List;
 public class EventService {
 
     private final EventRepository eventRepository;
+    private final TicketService ticketService;
+    private final CategoryService categoryService;
     private final TicketRepository ticketRepository;
     private final EventMapper eventMapper;
 
@@ -40,7 +46,9 @@ public class EventService {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new EventNotFoundException("Event not found with id: " + id));
 
-        event.setCategoryId(eventRequestDTO.categoryId());
+        Category category = categoryService.getCategoryById(eventRequestDTO.categoryId());
+
+        event.setCategory(category);
         event.setName(eventRequestDTO.name());
         event.setDescription(eventRequestDTO.description());
         event.setDate(eventRequestDTO.date());
@@ -59,5 +67,18 @@ public class EventService {
 
         ticketRepository.deleteByEventId(id);
         eventRepository.deleteById(id);
+    }
+
+    public EventDetailsResponse getEventDetailsById(Integer id) {
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new EventNotFoundException("Event not found with id: " + id));
+
+        List<Integer> users = ticketService.getUsersOfEvent(id);
+
+        return new EventDetailsResponse(
+                event,
+                users,
+                event.getCapacity() - users.size()
+        );
     }
 }

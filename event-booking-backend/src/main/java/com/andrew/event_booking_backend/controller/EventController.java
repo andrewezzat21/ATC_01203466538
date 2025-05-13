@@ -1,6 +1,7 @@
 package com.andrew.event_booking_backend.controller;
 
 import com.andrew.event_booking_backend.dto.ApiResponse;
+import com.andrew.event_booking_backend.dto.EventDetailsResponse;
 import com.andrew.event_booking_backend.dto.EventRequestDTO;
 import com.andrew.event_booking_backend.entity.Event;
 import com.andrew.event_booking_backend.service.EventService;
@@ -44,6 +45,18 @@ public class EventController {
                         HttpStatus.OK.value(),
                         LocalDateTime.now(),
                         event));
+
+    }
+
+    @GetMapping("/{id}/details")
+    public ResponseEntity<ApiResponse<EventDetailsResponse>> getEventDetailsById(@PathVariable Integer id){
+        EventDetailsResponse eventDetails = eventService.getEventDetailsById(id);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ApiResponse<>("Event details with id: " + id,
+                        HttpStatus.OK.value(),
+                        LocalDateTime.now(),
+                        eventDetails));
 
     }
 

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,11 +23,8 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer categoryId;
-
     @ManyToOne
     @JoinColumn(name = "categoryId", insertable = false, updatable = false)
-    @JsonIgnore
     private Category category;
 
     private String name;
@@ -48,7 +46,7 @@ public class Event {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
-
+    
 
     @PrePersist
     public void prePersist() {

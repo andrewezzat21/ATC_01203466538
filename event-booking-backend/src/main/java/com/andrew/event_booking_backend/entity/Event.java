@@ -24,7 +24,7 @@ public class Event {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "categoryId", insertable = false, updatable = false)
+    @JoinColumn(name = "categoryId")
     private Category category;
 
     private String name;

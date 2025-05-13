@@ -1,39 +1,19 @@
-export default function AdminCard({ event, onEventUpdated, onEditClick}) {
+import { Link } from "react-router-dom";
 
+export default function AdminCard({ event}) {
 
     const eventDetails = event.event;
-    const ticketsLeft = event.ticketsLeft;    
+    const ticketsLeft = event.ticketsLeft;
+    const users = event.users;
 
-    const handleDelete = async () => {
-        const token = localStorage.getItem("token");
-        try{
-            const response = await fetch('http://localhost:8080/api/v1/events/' + eventDetails.id, {
-                method: 'DELETE',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-        
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to delete event');
-            }
-
-            onEventUpdated();
-        } catch(error){
-            alert('Error: ' + error.message);
-        }
-
-    }
 
     return (
-
-        <div className=" animate-appear3 dark:text-white font-pop my-5 h-100 w-90 border-0 rounded-lg relative overflow-hidden shadow-sm" >
+        <div className=" dark:text-white font-pop my-5 h-100 w-90 border-0 rounded-lg relative overflow-hidden shadow-sm" >
          
             <div className="bg-black h-1/2">
                 <img src={eventDetails.image} alt="Event Image" className="h-1/2 z-0 object-cover w-full absolute" />
                 <div className="h-1/2 absolute top-0 opacity-55 w-full bg-black"></div>
-                <div className="px-10 py-0.5 absolute top-5 left-5 rounded-lg text-sm font-extralight bg-blue-500 text-white">
+                <div className="px-10 py-0.5 absolute top-5 left-5 rounded-lg text-sm font-extralight bg-blue text-white">
                     {eventDetails.category.name}
                 </div>
                 <div className="px-5 absolute top-40 rounded-lg text-sm font-extralight text-white">{ticketsLeft > 0 ? ticketsLeft : "No"} Tickets Left!</div>
@@ -66,12 +46,23 @@ export default function AdminCard({ event, onEventUpdated, onEditClick}) {
                 </div>
 
                 <div className="flex w-full justify-between mb-2">
-                    <button onClick={() => onEditClick(eventDetails)} className="mr-2 w-37 self-end rounded-sm bg-blue-500 text-white font-medium px-1.5 py-1 flex items-center justify-center border-blue border-1 hover:text-blue hover:border-blue hover:bg-white cursor-pointer">
-                        Edit
-                    </button>
-                    <button  onClick={handleDelete} className=" w-37 self-end rounded-sm bg-red-500 text-white font-medium px-1.5 flex items-center py-1 justify-center border-red-500 border-1 hover:text-red-500 hover:border-red hover:bg-white cursor-pointer">
-                        Delete
-                    </button>
+                    {
+                        localStorage.getItem("token") == null ?
+                        <Link to={"/login"} className=" mr-2 w-full h-10 self-end rounded-sm bg-green-500 text-white font-medium px-1.5 py-1 flex items-center justify-center border-green-500 border-1 hover:text-blue hover:border-blue hover:bg-white cursor-pointer">
+                            Book Now!
+                        </Link>
+                        :
+                        (
+                            users.includes(Number(localStorage.getItem("userId"))) ?
+                            <div className="mr-2 w-full h-10 self-end rounded-sm bg-gray-500 text-white font-medium px-1.5 py-1 flex items-center justify-center border-gray-500 border-1">
+                                Already Booked!
+                            </div>
+                            :
+                            <Link to={"/book/" + eventDetails.id} className="mr-2 w-full h-10 self-end rounded-sm bg-green-500 text-white font-medium px-1.5 py-1 flex items-center justify-center border-green-500 border-1 hover:text-blue hover:border-blue hover:bg-white cursor-pointer">
+                            Book Now!
+                            </Link> 
+                        )
+                    }
                 </div>
             </div>
 

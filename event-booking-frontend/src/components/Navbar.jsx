@@ -26,7 +26,7 @@ export default function Navbar(){
 
         userId != null ?
         <nav className=" text-md font-mont font-light" >
-            <div className="bg-blue-500 text-white flex items-start justify-between  py-5 px-10">
+            <div className="bg-blue text-white flex items-start justify-between  py-5 px-10">
                 <div className=" flex ">
                     <h1 className="cursor-pointer text-md font-black text-white">
                         <Link to="/">EVNT.</Link>
@@ -58,7 +58,7 @@ export default function Navbar(){
         </nav>
         :
         <nav className="text-md font-mont font-light" >
-            <div className="bg-blue-500 text-white flex items-start justify-between  py-5 px-10">
+            <div className="bg-blue text-white flex items-start justify-between  py-5 px-10">
                 <div className="flex ">
                     <h1 className="cursor-pointer text-md font-black text-white">
                         <Link to="/">EVNT.</Link>

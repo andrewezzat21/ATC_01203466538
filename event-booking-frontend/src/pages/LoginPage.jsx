@@ -40,7 +40,6 @@ export default function LoginPage() {
                 errorMsg.textContent = data.message || 'Something went wrong';
                 errorMsg.classList.remove('hidden');
             } else {
-                console.log(data.data)
                 errorMsg.classList.add('hidden');
                 localStorage.setItem('token', data.data.token);
                 localStorage.setItem('roles', data.data.roles);

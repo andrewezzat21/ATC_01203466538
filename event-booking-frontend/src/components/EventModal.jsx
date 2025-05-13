@@ -64,6 +64,7 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
       
         jsonData.image = imageUrl;
           
+        console.log(jsonData);
         try {
             const token = localStorage.getItem('token');
             const response = await fetch('http://localhost:8080/api/v1/events', {
@@ -120,36 +121,36 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
 
     if(!isVisible) return null;
     return(
-        <div  className="z-10 fixed inset-0 bg-black/25 backdrop-blur-sm flex justify-center items-center" id="wrapper" onClick={handleClose}>
-            <div class="bg-white w-dvh h-150 flex flex-col py-5 px-10">
-                <h1 class="text-blue font-medium font-mont text-xl">Create New Event</h1>
+        <div  className="animate-appear3 z-10 fixed inset-0 font-mont  bg-black/25 backdrop-blur-sm flex justify-center items-center" id="wrapper" onClick={handleClose}>
+            <div class="bg-white dark:bg-gray-700 w-dvh h-150 flex flex-col py-5 px-10">
+                <h1 class="text-blue font-medium  text-xl">Create New Event</h1>
                 <div class="w-full h-0.5 mt-1 bg-blue"></div>
 
-                <form onSubmit={handleSubmit} method="post" class=" w-full h-full mt-3">
-                    <div class="flex flex-wrap -mx-3 mb-6">
+                <form  onSubmit={handleSubmit} method="post" class=" w-full h-full mt-3">
+                    <div class=" flex flex-wrap -mx-3 mb-6">
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
+                        <label class="dark:text-white block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
                             Event Name
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="name" type="text" placeholder="e.g. Job Fair" />
                         </div>
 
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="venue">
+                        <label class="dark:text-white block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="venue">
                             Venue
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="venue" type="text" placeholder="e.g. Assiut University" />
                         </div>
 
                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="date">
+                        <label class="dark:text-white block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="date">
                             Date and Time
                         </label>
                         <Datetime timeFormat = {"hh:mm A"} isValidDate={ valid } inputProps={dateTimeProps} className="w appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="date"/>
                         </div>
 
                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
+                        <label class="dark:text-white block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
                             Price
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="price" type="number" 
@@ -157,7 +158,7 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                         </div>
 
                         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="capacity">
+                        <label class="dark:text-white block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="capacity">
                             Capacity
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none" name="capacity" type="number" 
@@ -165,7 +166,7 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                         </div>
 
                         <div class="w-full px-3 mb-6 md:mb-0">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="category">
+                            <label class="dark:text-white block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="category">
                                 Category
                             </label>
                             <select 
@@ -178,7 +179,7 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                         </div>
 
                         <div class="w-full px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="description">
+                        <label class="dark:text-white block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="description">
                             Description
                         </label>
                         <textarea 
@@ -188,11 +189,18 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
                             rows="3"
                             oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'">
                         </textarea>
-                        <input type="file" name="imageFile" accept="image/*"/>
 
+                        <label class="dark:text-white block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="description">
+                            Optional: Image
+                        </label>
+                        <input 
+                            type="file" 
+                            name="imageFile" 
+                            accept="image/*"
+                            class="cursor-pointer appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none"
+                        />
                         <button type="submit" class="bg-blue-500 text-white px-4 py-2 mb-3 rounded cursor-pointer">Create Event</button>
-                        <p id="errorMsg"  class="text-red-500 text-xs italic hidden">Please fill out this field.</p>
-
+                        <p id="errorMsg"  class="dark:text-yellow-300 text-red-500 text-xs italic hidden">Please fill out this field.</p>
                         </div>
                     </div>
                 </form>

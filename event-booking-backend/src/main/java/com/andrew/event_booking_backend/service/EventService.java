@@ -74,11 +74,27 @@ public class EventService {
                 .orElseThrow(() -> new EventNotFoundException("Event not found with id: " + id));
 
         List<Integer> users = ticketService.getUsersOfEvent(id);
-
+        Integer ticketsLeft = event.getCapacity() - users.size();
         return new EventDetailsResponse(
                 event,
                 users,
-                event.getCapacity() - users.size()
+                ticketsLeft
         );
+    }
+
+    public List<EventDetailsResponse> getAllEventDetails() {
+        List<Event> events = eventRepository.findAll();
+
+        return events.stream()
+                .map(event -> {
+                    List<Integer> users = ticketService.getUsersOfEvent(event.getId());
+                    Integer ticketsLeft = event.getCapacity() - users.size();
+                    return new EventDetailsResponse(
+                            event,
+                            users,
+                            ticketsLeft
+                    );
+                })
+                .toList();
     }
 }

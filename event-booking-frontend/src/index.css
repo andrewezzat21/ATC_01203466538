@@ -23,6 +23,7 @@ body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
   --animate-appear: appear 1.3s ;
   --animate-appear2: appear2 1.7s ;
   --animate-appear3: appear3 0.7s ;
+  --animate-appear4: appear4 3s;
 
   @keyframes appear {
     0% {
@@ -46,7 +47,16 @@ body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
     }
   }
 
-    @keyframes appear3 {
+  @keyframes appear3 {
+    0% {
+      opacity: 0;
+    },
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes appear4 {
     0% {
       opacity: 0;
     },

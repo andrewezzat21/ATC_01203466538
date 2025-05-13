@@ -60,6 +60,18 @@ public class EventController {
 
     }
 
+    @GetMapping("/details")
+    public ResponseEntity<ApiResponse<List<EventDetailsResponse>>> getAllEventDetails(){
+        List<EventDetailsResponse> eventDetails = eventService.getAllEventDetails();
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ApiResponse<>("All Event details: ",
+                        HttpStatus.OK.value(),
+                        LocalDateTime.now(),
+                        eventDetails));
+
+    }
+
     @PostMapping()
     public ResponseEntity<ApiResponse<Event>> createEvent(@Valid @RequestBody EventRequestDTO eventRequestDTO){
         Event event = eventService.createEvent(eventRequestDTO);

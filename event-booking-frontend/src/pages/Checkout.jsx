@@ -46,7 +46,7 @@ export default function Checkout() {
             });
             const data = await response.json();
             if (!response.ok) {
-                alert(data.message)
+                navigate("/error", { state: { message: data.message } });
             } else {
                 navigate("/success")
             }
@@ -70,7 +70,7 @@ export default function Checkout() {
                     <div className=' font-bold text-3xl'>Event Name: {eventDetails.name}</div>
                     <div className=' font-bold text-3xl'>Location: {eventDetails.venue}</div>
                     <div className=' font-bold text-3xl'>Date: {new Date(eventDetails.date).toLocaleDateString()} {new Date(eventDetails.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-                    <div className=' font-bold text-3xl'>Price: {eventDetails.price} EGP</div>
+                    <div className=' font-bold text-3xl'>Price: {eventDetails.price > 0 ? eventDetails.price + " EGP" : "FREE"}</div>
                     <button onClick={() => bookEvent()} className='mt-3 cursor-pointer border-blue border-1 hover:text-blue hover:bg-white hover:border-1 hover:border-blue py-2 px-5 text-white rounded-lg bg-blue'>Buy Ticket</button>
                 </div>
             </div>

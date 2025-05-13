@@ -8,7 +8,7 @@ export default function AdminCard({ event}) {
 
 
     return (
-        <div className=" dark:text-white font-pop my-5 h-100 w-90 border-0 rounded-lg relative overflow-hidden shadow-sm" >
+        <div className=" dark:text-white font-pop my-5 h-110 w-90 border-0 rounded-lg relative overflow-hidden shadow-sm" >
          
             <div className="bg-black h-1/2">
                 <img src={eventDetails.image} alt="Event Image" className="h-1/2 z-0 object-cover w-full absolute" />
@@ -40,7 +40,7 @@ export default function AdminCard({ event}) {
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 mr-2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-                        <h1 className="font-extralight">{eventDetails.price} EGP</h1>
+                        <h1 className="font-extralight">{eventDetails.price > 0 ? eventDetails.price + " EGP" : "FREE" }</h1>
                     </div>
                     <div class="font-extralight mt-1 max-w-full max-h-full break-words line-clamp-2">{eventDetails.description}</div>
                 </div>
@@ -48,21 +48,24 @@ export default function AdminCard({ event}) {
                 <div className="flex w-full justify-between mb-2">
                     {
                         localStorage.getItem("token") == null ?
-                        <Link to={"/login"} className=" mr-2 w-full h-10 self-end rounded-sm bg-green-500 text-white font-medium px-1.5 py-1 flex items-center justify-center border-green-500 border-1 hover:text-blue hover:border-blue hover:bg-white cursor-pointer">
+                        <Link to={"/login"} className="transition-all mr-2 w-1/2 h-10 self-end rounded-sm bg-green-500 text-white font-medium px-1.5 py-1 flex items-center justify-center border-green-500 border-1 hover:text-green-500 hover:border-green-500 hover:bg-white cursor-pointer">
                             Book Now!
                         </Link>
                         :
                         (
                             users.includes(Number(localStorage.getItem("userId"))) ?
-                            <div className="mr-2 w-full h-10 self-end rounded-sm bg-gray-500 text-white font-medium px-1.5 py-1 flex items-center justify-center border-gray-500 border-1">
+                            <div className=" mr-2 w-1/2 h-10 self-end rounded-sm bg-gray-500 text-white font-medium px-1.5 py-1 flex items-center justify-center border-gray-500 border-1">
                                 Already Booked!
                             </div>
                             :
-                            <Link to={"/book/" + eventDetails.id} className="mr-2 w-full h-10 self-end rounded-sm bg-green-500 text-white font-medium px-1.5 py-1 flex items-center justify-center border-green-500 border-1 hover:text-blue hover:border-blue hover:bg-white cursor-pointer">
+                            <Link to={"/book/" + eventDetails.id} className="transition-all mr-2 w-1/2 h-10 self-end rounded-sm bg-green-500 text-white font-medium px-1.5 py-1 flex items-center justify-center border-green-500 border-1 hover:text-green-500 hover:border-green-500 hover:bg-white cursor-pointer">
                             Book Now!
                             </Link> 
                         )
                     }
+                    <Link to={"/events/" + eventDetails.id} className="transition-all mr-2 w-1/2 h-10 self-end rounded-sm  text-blue font-medium px-1.5 py-1 flex items-center justify-center border-blue border-1 hover:text-white hover:border-blue hover:bg-blue cursor-pointer">
+                    View Details
+                    </Link> 
                 </div>
             </div>
 

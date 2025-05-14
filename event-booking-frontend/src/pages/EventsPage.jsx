@@ -1,136 +1,150 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import EventCardWrapper from "../components/EventCardWrapper";
 import Navbar from "../components/Navbar";
-export default function EventsPage(){
 
-    const [events, setEvents] = useState([]);
-    const [userEvents, setUserEvents] = useState([]);
+export default function EventsPage() {
+  const [events, setEvents] = useState([]);
+  const [search, setSearch] = useState("");
+  const [visibleCount, setVisibleCount] = useState(7);
+  const [priceFilter, setPriceFilter] = useState("all");
+  const [searchParams] = useSearchParams();
+  const initialCategoryId = Number(searchParams.get("category")) || 0;
+  const [categoryId, setCategoryId] = useState(initialCategoryId);
 
+  const ITEMS_PER_LOAD = 7;
 
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
     const fetchEvents = async () => {
-
-        const token = localStorage.getItem('token');
-        try {
-            const response = await fetch('http://localhost:8080/api/v1/events',{
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            const data = await response.json();
-            setEvents(data.data);
-        } catch (error) {
-            console.error('Error fetching events:', error);
-        }
+      try {
+        const response = await fetch(
+          "http://localhost:8080/api/v1/events/details"
+        );
+        const data = await response.json();
+        setEvents(data.data);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
     };
+    fetchEvents();
+  }, []);
 
-    const fetchTickets = async () => {
-
-        const token = localStorage.getItem('token');
-        const userId = localStorage.getItem('userId');
-
-        try {
-            const url = 'http://localhost:8080/api/v1/tickets/user/' + userId;
-            const response = await fetch(url, {  
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                alert(data.message)
-            } else {
-                setUserEvents(data.data.map(event => event.id));
-            }
-        } catch (error) {
-            console.error('Error fetching user events:', error.message);
-        }
-
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/v1/categories");
+        const data = await response.json();
+        setCategories(data.data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
     };
+    fetchCategories();
+  }, []);
 
-    useEffect(() => {
-        fetchEvents();
-        fetchTickets();
-    }, []);
+  useEffect(() => {
+    setVisibleCount(ITEMS_PER_LOAD);
+  }, [search, categoryId]);
 
-    const bookEvent = async (eventId) => {
+  const filteredEvents = events.filter((event) => {
+    const matchesSearch =
+      search === "" ||
+      event.event.name.toLowerCase().includes(search.toLowerCase());
 
-        const userId = localStorage.getItem('userId');
+    const matchesCategory =
+      categoryId === 0 || event.event.category.id == categoryId;
 
-        const jsonData = {};
-        jsonData.eventId = eventId;
-        jsonData.userId = userId;
+    const matchesPrice =
+      priceFilter === "all" ||
+      (priceFilter === "free" && event.event.price === 0) ||
+      (priceFilter === "paid" && event.event.price > 0);
 
-        try {
-            const token = localStorage.getItem('token');
-            const url = 'http://localhost:8080/api/v1/tickets';
-            const response = await fetch(url, {  
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(jsonData)
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                alert(data.message)
-            } else {
-                alert("Event Booked Successfuly!")
-                fetchEvents();
-                fetchTickets();
-            }
+    return matchesSearch && matchesCategory && matchesPrice;
+  });
 
-        } catch (error) {
-            console.error('Error Booking The event:', error.message);
-        }
+  const visibleFilteredEvents = filteredEvents.slice(0, visibleCount);
 
-    }
-
-    const isBooked = (eventId) => {
-        return userEvents.includes(eventId);
-    }
-
-
-    
-
-    return(
-        <div>
-            <Navbar/>
-
-        <div class="flex flex-col justify-center ml-3">
-            <button className="cursor-pointer">
-                <svg class="dark:hidden" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-                    <path class="fill-slate-300" d="M7 0h2v2H7zM12.88 1.637l1.414 1.415-1.415 1.413-1.413-1.414zM14 7h2v2h-2zM12.95 14.433l-1.414-1.413 1.413-1.415 1.415 1.414zM7 14h2v2H7zM2.98 14.364l-1.413-1.415 1.414-1.414 1.414 1.415zM0 7h2v2H0zM3.05 1.706 4.463 3.12 3.05 4.535 1.636 3.12z" />
-                    <path class="fill-slate-400" d="M8 4C5.8 4 4 5.8 4 8s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4Z" />
-                </svg>
-                <svg className="hidden dark:block" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-                    <path className="fill-slate-400" d="M6.2 1C3.2 1.8 1 4.6 1 7.9 1 11.8 4.2 15 8.1 15c3.3 0 6-2.2 6.9-5.2C9.7 11.2 4.8 6.3 6.2 1Z" />
-                    <path
-                    className="fill-slate-500"
-                    d="M12.5 5a.625.625 0 0 1-.625-.625 1.252 1.252 0 0 0-1.25-1.25.625.625 0 1 1 0-1.25 1.252 1.252 0 0 0 1.25-1.25.625.625 0 1 1 1.25 0c.001.69.56 1.249 1.25 1.25a.625.625 0 1 1 0 1.25c-.69.001-1.249.56-1.25 1.25A.625.625 0 0 1 12.5 5Z"
-                    />
-                </svg>
-            </button>
-
-        </div>
-            <section class="px-15 py-10">
-                <div class="flex items-center">
-                    <h1 class="dark:bg-red-50 font-pop text-5xl font-medium">Events Homepage</h1>
-                </div>
-
-                {events.map((event) => (
-                    <div class="flex w-full justify-between">
-                        <h1>{event.name}</h1>
-                        {
-                            isBooked(event.id) ? 
-                            <button disabled class="cursor-not-allowed px-3 ml-5 bg-gray-200">Booked</button> :
-                            <button onClick={() => bookEvent(event.id)} class="cursor-pointer px-3 ml-5 bg-blue-500">Book event</button>
-                        }
-                    </div>
-                ))}
-            </section>
-        </div>
+  const handleLoadMore = () => {
+    setVisibleCount((prev) =>
+      Math.min(prev + ITEMS_PER_LOAD, filteredEvents.length)
     );
+  };
 
+  return (
+    <>
+      <section>
+        <Navbar />
+        <div className=" dark:bg-navy bg-blue px-15 pt-10 pb-15 w-full h-1/2 font-pop flex flex-col">
+          <div className="px-10">
+            <div className="animate-appear text-white">
+              <div className="font-black text-5xl">
+                Discover Upcoming Events
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full px-50 pt-10 flex justify-between">
+          <div className="relative w-full flex justify-center items-center">
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none"
+              type="text"
+              placeholder="Search for upcoming events..."
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
+            />
+          </div>
+
+          <select
+            onChange={(e) => setCategoryId(Number(e.target.value) || 0)}
+            className="appearance-none block w-2/6 ml-5 font-semibold bg-gray-200 text-gray-700 rounded py-2 px-4 text-center cursor-pointer mb-3 leading-tight focus:outline-none"
+            value={categoryId}
+          >
+            <option value="0">All Categories</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+
+          <select
+            onChange={(e) => setPriceFilter(e.target.value)}
+            className="appearance-none block w-2/8 ml-5 font-semibold bg-gray-200 text-gray-700 rounded py-2 px-0 text-center cursor-pointer mb-3 leading-tight focus:outline-none"
+          >
+            <option value="all">All Prices</option>
+            <option value="free">Free</option>
+            <option value="paid">Paid</option>
+          </select>
+        </div>
+
+        <div className="z-0 inset-shadow-gray-500 pb-5 justify-between gap-x-0 grid grid-cols-3 place-items-center w-full px-25">
+          {visibleFilteredEvents.map((event) => (
+            <div key={event.event.id} className="flex-shrink-0">
+              <EventCardWrapper event={event} />
+            </div>
+          ))}
+        </div>
+
+        {filteredEvents.length === 0 && (
+          <div className="text-center text-gray-500 mt-10">
+            No events found.
+          </div>
+        )}
+
+        <div className="flex w-full justify-center mb-20">
+          {visibleFilteredEvents.length < filteredEvents.length && (
+            <div
+              onClick={handleLoadMore}
+              className="transition-all hover:text-blue hover:border-white hover:bg-white px-10 py-2 cursor-pointer text-white border-1 border-white bg-blue rounded-4xl"
+            >
+              Load More
+            </div>
+          )}
+        </div>
+      </section>
+    </>
+  );
 }

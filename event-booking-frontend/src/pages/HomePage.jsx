@@ -51,13 +51,13 @@ export default function HomePage() {
                             <div className="text-sm my-3 mb-5">Already have an account?</div>
                             <Link to={"login"} className="text-sm my-3 mb-5 ml-1 font-bold cursor-pointer">Login now!</Link>
                         </div>
+                        
                     </div>
-
-
-
                     </div>
+     
                 </div>
                 <div className=" dark:bg-gray-800  py-15 px-20 w-full h-1/2 font-pop flex flex-col">
+    
                     <div className="animate-appear flex items-end dark:text-white text-blue">
                         <div className="mr-3 font-bold text-4xl">Explore Upcoming Events!</div>
                         <Link to={"/events"} className="py-0 cursor-pointer h-7 dark:hover:text-gray-200 hover:text-blue-800 font-normal text-lg">See all</Link>

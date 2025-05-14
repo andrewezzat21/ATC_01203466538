@@ -2,7 +2,9 @@ package com.andrew.event_booking_backend.controller;
 
 import com.andrew.event_booking_backend.dto.ApiResponse;
 import com.andrew.event_booking_backend.dto.CategoryRequestDTO;
+import com.andrew.event_booking_backend.dto.EventDetailsResponse;
 import com.andrew.event_booking_backend.entity.Category;
+import com.andrew.event_booking_backend.entity.Event;
 import com.andrew.event_booking_backend.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +45,17 @@ public class CategoryController {
                         HttpStatus.OK.value(),
                         LocalDateTime.now(),
                         category));
+    }
+
+    @GetMapping("/{id}/events")
+    public ResponseEntity<ApiResponse<List<EventDetailsResponse>>> getEventsByCategoryId(@PathVariable Integer id) {
+        List<EventDetailsResponse> events = categoryService.getEventsByCategoryId(id);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ApiResponse<>("Category events with id: " + id,
+                        HttpStatus.OK.value(),
+                        LocalDateTime.now(),
+                        events));
     }
 
     @PostMapping()

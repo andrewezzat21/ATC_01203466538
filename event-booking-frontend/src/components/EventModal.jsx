@@ -99,13 +99,9 @@ export default function EventModal({isVisible, onClose, onEventUpdated, reloadTr
       
 
     const fetchCategories = async () => {
-        const token = localStorage.getItem('token');
         try {
             const response = await fetch('http://localhost:8080/api/v1/categories',{
                 method : "GET",
-                headers : {
-                    'Authorization': `Bearer ${token}`
-                }
             });
             const data = await response.json();
             setCategories(data.data);

@@ -1,9 +1,12 @@
 package com.andrew.event_booking_backend.service;
 
 import com.andrew.event_booking_backend.dto.CategoryRequestDTO;
+import com.andrew.event_booking_backend.dto.EventDetailsResponse;
 import com.andrew.event_booking_backend.entity.Category;
+import com.andrew.event_booking_backend.entity.Event;
 import com.andrew.event_booking_backend.exception.CategoryNotFoundException;
 import com.andrew.event_booking_backend.repository.CategoryRepository;
+import com.andrew.event_booking_backend.repository.EventRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,8 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final EventRepository eventRepository;
+    private final TicketService ticketService;
 
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
@@ -57,5 +62,25 @@ public class CategoryService {
         }
 
         categoryRepository.deleteById(id);
+    }
+
+    public List<EventDetailsResponse> getEventsByCategoryId(Integer id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
+
+        List<Event> events = eventRepository.findByCategory(category);
+
+        return events.stream()
+                .map(event -> {
+                    List<Integer> users = ticketService.getUsersOfEvent(event.getId());
+                    Integer ticketsLeft = event.getCapacity() - users.size();
+                    return new EventDetailsResponse(
+                            event,
+                            users,
+                            ticketsLeft
+                    );
+                })
+                .toList();
+
     }
 }

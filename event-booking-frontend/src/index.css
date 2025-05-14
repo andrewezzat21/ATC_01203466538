@@ -20,18 +20,20 @@ body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
   --color-white: #FFFFFF;
   --color-navy: #080E20;
 
-  --animate-appear: appear 1.3s ;
+  --animate-appear: appear 2.3s ;
   --animate-appear2: appear2 1.7s ;
   --animate-appear3: appear3 0.7s ;
   --animate-appear4: appear4 3s;
+  --animate-down: down 3s infinite ease-in-out;
+
 
   @keyframes appear {
     0% {
-      transform: translateY(0.3em);
+      transform: translateY(0.8em);
       opacity: 0;
     },
     100% {
-      transform: translateY(-0.3em);
+      transform: translateY(-0.8em);
       opacity: 1;
     }
   }
@@ -62,6 +64,18 @@ body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
     },
     100% {
       opacity: 1;
+    }
+  }
+
+  @keyframes down {
+    0% {
+      transform: translateY(0em);
+    }
+    50% {
+      transform: translateY(1em);
+    }
+    100% {
+      transform: translateY(0em);
     }
   }
 }

@@ -13,5 +13,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     List<Ticket> findByEventId(Integer eventId);
     boolean existsByUserIdAndEventId(Integer userId, Integer eventId);
     List<Ticket> findByUserId(Integer userId);
-    void deleteByEventId(Integer eventId);
+    void deleteByEvent(Event event);
 }

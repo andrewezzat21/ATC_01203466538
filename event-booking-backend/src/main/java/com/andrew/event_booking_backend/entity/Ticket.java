@@ -22,7 +22,7 @@ public class Ticket {
     private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "event_id", nullable = false)
+    @JoinColumn(name = "event_id")
     private Event event;
 
     private LocalDateTime createdAt;

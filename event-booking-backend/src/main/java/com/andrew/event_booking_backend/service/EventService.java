@@ -65,7 +65,7 @@ public class EventService {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new EventNotFoundException("Event not found with id: " + id));
 
-        ticketRepository.deleteByEventId(id);
+        ticketRepository.deleteByEvent(event);
         eventRepository.deleteById(id);
     }
 

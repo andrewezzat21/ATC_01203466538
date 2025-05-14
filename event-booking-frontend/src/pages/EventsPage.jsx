@@ -77,7 +77,7 @@ export default function EventsPage() {
       <section>
         <Navbar />
         <div className=" dark:bg-navy bg-blue px-15 pt-10 pb-15 w-full h-1/2 font-pop flex flex-col">
-          <div className="px-10">
+          <div className="px-10 ">
             <div className="animate-appear text-white">
               <div className="font-black text-5xl">
                 Discover Upcoming Events
@@ -86,7 +86,7 @@ export default function EventsPage() {
           </div>
         </div>
 
-        <div className="w-full px-50 pt-10 flex justify-between">
+        <div className="animate-appear2 w-full px-50 pt-10 flex justify-between">
           <div className="relative w-full flex justify-center items-center">
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none"
@@ -97,30 +97,64 @@ export default function EventsPage() {
             />
           </div>
 
-          <select
-            onChange={(e) => setCategoryId(Number(e.target.value) || 0)}
-            className="appearance-none block w-2/6 ml-5 font-semibold bg-gray-200 text-gray-700 rounded py-2 px-4 text-center cursor-pointer mb-3 leading-tight focus:outline-none"
-            value={categoryId}
-          >
-            <option value="0">All Categories</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-
-          <select
-            onChange={(e) => setPriceFilter(e.target.value)}
-            className="appearance-none block w-2/8 ml-5 font-semibold bg-gray-200 text-gray-700 rounded py-2 px-0 text-center cursor-pointer mb-3 leading-tight focus:outline-none"
-          >
-            <option value="all">All Prices</option>
-            <option value="free">Free</option>
-            <option value="paid">Paid</option>
-          </select>
+          <div className="relative w-2/6 ml-5 mb-3">
+            <select
+              onChange={(e) => setCategoryId(Number(e.target.value) || 0)}
+              className="w-full font-medium bg-gray-200 text-gray-700 rounded cursor-pointer appearance-none px-3 py-2 focus:outline-none"
+              value={categoryId}
+            >
+              <option value="0">All Categories</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            <div className="absolute inset-y-0 right-2 px-1 flex items-center justify-between pointer-events-none">
+              <svg
+                className="w-4 h-4 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+          </div>
+          <div className="relative w-2/6 ml-5 mb-3">
+            <select
+              onChange={(e) => setPriceFilter(e.target.value)}
+              className="w-full font-medium bg-gray-200 text-gray-700 rounded cursor-pointer appearance-none px-3 py-2 focus:outline-none"
+              value={categoryId}
+            >
+              <option value="all">All Prices</option>
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+            </select>
+            <div className="absolute inset-y-0 right-2 px-1 flex items-center justify-between pointer-events-none">
+              <svg
+                className="w-4 h-4 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
 
-        <div className="z-0 inset-shadow-gray-500 pb-5 justify-between gap-x-0 grid grid-cols-3 place-items-center w-full px-25">
+        <div className="animate-appear z-0 inset-shadow-gray-500 pb-5 justify-between gap-x-0 grid grid-cols-3 place-items-center w-full px-25">
           {visibleFilteredEvents.map((event) => (
             <div key={event.event.id} className="flex-shrink-0">
               <EventCardWrapper event={event} />

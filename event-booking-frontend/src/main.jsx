@@ -1,7 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Navbar from "./components/Navbar.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import "./index.css";
 import AdminPage from "./pages/AdminPage.jsx";
@@ -14,6 +13,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import SuccessPage from "./pages/SuccessPage.jsx";
 import TicketsPage from "./pages/TicketsPage.jsx";
+import UnbookEvent from "./pages/UnbookEvent.jsx";
 const router = createBrowserRouter([
 	{
 		path: "/admin",
@@ -52,6 +52,10 @@ const router = createBrowserRouter([
 		element: <Checkout />,
 	},
 	{
+		path: "/cancel/:eventId",
+		element: <UnbookEvent />,
+	},
+	{
 		path: "/events/:eventId",
 		element: <EventDetailsPage />,
 	},
@@ -70,3 +74,7 @@ createRoot(document.getElementById("root")).render(
 		<RouterProvider router={router} />
 	</StrictMode>
 );
+
+router.subscribe(() => {
+	window.scrollTo(0, 0);
+});

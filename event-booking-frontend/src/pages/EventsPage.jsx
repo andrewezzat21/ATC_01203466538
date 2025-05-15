@@ -180,7 +180,7 @@ export default function EventsPage() {
 					{visibleFilteredEvents.length < filteredEvents.length && (
 						<div
 							onClick={handleLoadMore}
-							className="transition-all hover:text-blue hover:border-white hover:bg-white px-10 py-2 cursor-pointer text-white border-1 border-white bg-blue rounded-4xl"
+							className="transition-all hover:text-blue hover:border-white hover:bg-white px-10 py-2 cursor-pointer text-white border-1 border-white bg-blue rounded-sm"
 						>
 							Load More
 						</div>

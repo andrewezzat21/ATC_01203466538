@@ -65,4 +65,11 @@ public class TicketService {
                 .map(ticket -> ticket.getUser().getId())
                 .toList();
     }
+
+    @Transactional
+    public void deleteTicketByUserId(Integer userId, Integer eventId) {
+        Ticket ticket = ticketRepository.findByUserIdAndEventId(userId,eventId)
+                .orElseThrow(() -> new RuntimeException("Ticket is not found!"));
+        ticketRepository.delete(ticket);
+    }
 }

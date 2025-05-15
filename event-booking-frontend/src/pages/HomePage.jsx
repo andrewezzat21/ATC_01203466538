@@ -18,11 +18,14 @@ export default function HomePage() {
 				const data = await response.json();
 				setRandomEvents(getRandomItems(data.data, 7));
 				setRandomCategories(
-					[
-						...new Set(
-							data.data.map((event) => event.event.category)
-						),
-					].slice(0, 4)
+					data.data
+						.map((event) => event.event.category)
+						.filter(
+							(category, index, self) =>
+								index ===
+								self.findIndex((c) => c.id === category.id)
+						)
+						.slice(0, 4)
 				);
 			} catch (error) {
 				console.error("Error fetching events:", error);
@@ -196,16 +199,16 @@ export default function HomePage() {
 					</div>
 				</div>
 
-				<div className="w-full h-100 px-20 mt-10">
-					<div className="font-bold text-4xl  text-blue">
+				<div className="w-full h-100 px-20  mt-10">
+					<div className="font-bold text-4xl  dark:text-white text-blue">
 						Popular Categories
 					</div>
-					<div className="flex justify-center mt-5 gap-10 text-blue font-black text-5xl">
+					<div className="flex justify-center mt-5 gap-10 dark:text-white  text-blue font-black text-5xl">
 						{randomCategories.map((category) => (
 							<Link
 								to={`/events?category=${category.id}`}
 								key={category.id}
-								className=" transform transition duration-300  hover:scale-90 hover:shadow-2xl cursor-pointer w-1/4 h-100 border-5 flex justify-center items-center border-blue"
+								className=" transform transition duration-300  hover:scale-90 hover:shadow-2xl cursor-pointer w-1/4 dark:border-white h-100 border-5 flex justify-center items-center border-blue"
 							>
 								<div>{category.name}</div>
 							</Link>
@@ -213,7 +216,7 @@ export default function HomePage() {
 					</div>
 				</div>
 
-				<div className="w-full h-100 px-20 items-center py-20 mt-30 bg-blue ">
+				<div className="w-full h-100 px-20 items-center py-20 mt-30 dark:bg-navy bg-blue ">
 					<div className="font-bold text-4xl text-white">
 						What People Are Saying
 					</div>
@@ -269,7 +272,7 @@ export default function HomePage() {
 					</div>
 				</div>
 
-				<div className=" px-20 font-pop flex flex-col justify-center items-center gap-4 py-20 mb-10 mx-20  bg-blue ">
+				<div className=" px-20 font-pop flex flex-col justify-center items-center gap-4 py-20 mb-10 mx-20 dark:bg-navy  bg-blue ">
 					<div className="font-bold text-4xl text-white">
 						Ready To Go?
 					</div>
@@ -280,7 +283,7 @@ export default function HomePage() {
 					<div className="flex gap-4 font-mont items-center">
 						<Link
 							to={"/register"}
-							className="transition-all hover:text-white hover:border-white font-bold hover:bg-blue px-10 py-2 cursor-pointer text-blue bg-white border-1 border-blue rounded-2xl"
+							className="transition-all dark:text-navy dark:border-navy hover:text-white hover:border-white font-bold hover:bg-blue px-10 py-2 cursor-pointer text-blue bg-white border-1 border-blue rounded-2xl"
 						>
 							Register Now
 						</Link>

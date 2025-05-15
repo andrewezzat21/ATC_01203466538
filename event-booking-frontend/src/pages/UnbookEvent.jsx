@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
-
-export default function Checkout() {
+export default function UnbookEvent() {
 	const { eventId } = useParams();
 	const [eventDetails, setEventDetails] = useState([]);
 	const navigate = useNavigate();
@@ -21,32 +20,30 @@ export default function Checkout() {
 		fetchEventDetails();
 	}, [eventId]);
 
-	const bookEvent = async () => {
+	const cancelTicket = async () => {
+		const token = localStorage.getItem("token");
 		const userId = localStorage.getItem("userId");
-
-		const jsonData = {};
-		jsonData.eventId = eventId;
-		jsonData.userId = userId;
-
 		try {
-			const token = localStorage.getItem("token");
-			const url = "http://localhost:8080/api/v1/tickets";
-			const response = await fetch(url, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify(jsonData),
-			});
+			const response = await fetch(
+				"http://localhost:8080/api/v1/tickets/" +
+					userId +
+					"/event/" +
+					eventId,
+				{
+					method: "DELETE",
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
 			const data = await response.json();
 			if (!response.ok) {
 				navigate("/error", { state: { message: data.message } });
-			} else {
-				navigate("/success");
 			}
+			console.log(data.message);
+			navigate("/tickets");
 		} catch (error) {
-			console.error("Error Booking The event:", error.message);
+			console.error("Error deleting the ticket:", error.message);
 		}
 	};
 
@@ -59,7 +56,7 @@ export default function Checkout() {
 						Are you sure?
 					</div>
 					<div className="text-white font-bold text-3xl">
-						You are about to buy one ticket for this event
+						You are about to cancel your ticket for this event
 					</div>
 					<div className="font-pop mt-5 px-5 py-5 dark:bg-gray-800 dark:text-white bg-white text-blue">
 						<div className=" font-bold text-3xl">
@@ -85,10 +82,10 @@ export default function Checkout() {
 								: "FREE"}
 						</div>
 						<button
-							onClick={() => bookEvent()}
-							className="mt-3 cursor-pointer border-blue border-1 hover:text-blue hover:bg-white hover:border-1 hover:border-blue py-2 px-5 text-white rounded-lg bg-blue"
+							onClick={cancelTicket}
+							className="mt-3 cursor-pointer bg-red-500 border-white border-1 hover:text-red-500 hover:bg-white hover:border-1 hover:border-red-500 py-2 px-5 text-white rounded-lg bg-red"
 						>
-							Buy Ticket
+							Cancel Ticket
 						</button>
 					</div>
 				</div>

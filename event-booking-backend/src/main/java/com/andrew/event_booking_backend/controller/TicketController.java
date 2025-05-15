@@ -61,4 +61,17 @@ public class TicketController {
 
     }
 
+    @DeleteMapping("/{userId}/event/{eventId}")
+    public ResponseEntity<ApiResponse<Ticket>> deleteTicketByUserId(
+            @PathVariable Integer userId, @PathVariable Integer eventId ){
+
+        ticketService.deleteTicketByUserId(userId,eventId);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ApiResponse<>("Ticket deleted successfully",
+                        HttpStatus.OK.value(),
+                        LocalDateTime.now(),
+                        null));
+
+    }
 }

@@ -105,7 +105,9 @@ export default function AdminCard({ event, onEventUpdated, onEditClick }) {
 							/>
 						</svg>
 						<h1 className="font-extralight">
-							{new Date(eventDetails.date).toLocaleDateString()}{" "}
+							{new Date(eventDetails.date).toLocaleDateString(
+								"en-GB"
+							)}{" "}
 							{new Date(eventDetails.date).toLocaleTimeString(
 								[],
 								{ hour: "2-digit", minute: "2-digit" }

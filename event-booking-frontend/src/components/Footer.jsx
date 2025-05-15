@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 export default function Footer() {
 	return (
 		<>
-			<footer className="py-10 px-20 bg-navy text-white">
+			<footer className="py-10 px-20 bg-blue dark:bg-navy text-white z-10 relative">
 				<h1 className="cursor-pointer text-md font-black text-white">
 					<Link to="/">EVNT.</Link>
 				</h1>

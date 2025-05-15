@@ -269,7 +269,7 @@ export default function HomePage() {
 					</div>
 				</div>
 
-				<div className="w-full px-20 font-pop flex flex-col justify-center items-center gap-4 py-20 mb-10  bg-blue ">
+				<div className=" px-20 font-pop flex flex-col justify-center items-center gap-4 py-20 mb-10 mx-20  bg-blue ">
 					<div className="font-bold text-4xl text-white">
 						Ready To Go?
 					</div>

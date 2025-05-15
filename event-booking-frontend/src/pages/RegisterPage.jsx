@@ -8,6 +8,9 @@ export default function RegisterPage() {
 
 	localStorage.removeItem("token");
 	localStorage.removeItem("roles");
+	localStorage.removeItem("userId");
+	localStorage.removeItem("firstName");
+	localStorage.removeItem("lastName");
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();

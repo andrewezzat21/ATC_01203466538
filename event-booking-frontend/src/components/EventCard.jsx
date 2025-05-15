@@ -4,6 +4,22 @@ export default function AdminCard({ event }) {
 	const eventDetails = event.event;
 	const ticketsLeft = event.ticketsLeft;
 	const users = event.users;
+	const categoryColor = colorHashFunction(eventDetails.category.id);
+
+	function colorHashFunction(num, alpha = 0.8) {
+		function hash(x) {
+			x = ((x << 13) ^ x) >>> 0;
+			return (x * (x * x * 15731 + 789221) + 1376312589) & 0xffffffff;
+		}
+
+		const hashed = hash(num);
+
+		const r = (hashed & 0xff0000) >> 16;
+		const g = (hashed & 0x00ff00) >> 8;
+		const b = hashed & 0x0000ff;
+
+		return `rgba(${r},${g},${b},${alpha})`;
+	}
 
 	return (
 		<div className=" dark:text-white font-pop my-5 h-110 w-90 border-0 rounded-lg relative overflow-hidden shadow-sm">
@@ -14,7 +30,10 @@ export default function AdminCard({ event }) {
 					className="h-1/2 z-0 object-cover w-full absolute"
 				/>
 				<div className="h-1/2 absolute top-0 opacity-55 w-full bg-black"></div>
-				<div className="px-10 py-0.5 absolute top-5 left-5 rounded-lg text-sm font-extralight bg-blue text-white">
+				<div
+					style={{ backgroundColor: categoryColor }}
+					className="px-10 py-0.5 absolute top-5 left-5 rounded-lg text-sm font-extraligh text-white"
+				>
 					{eventDetails.category.name}
 				</div>
 				<div className="px-5 absolute top-40 rounded-lg text-sm font-extralight text-white">

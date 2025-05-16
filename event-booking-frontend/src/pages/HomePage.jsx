@@ -48,8 +48,8 @@ export default function HomePage() {
 		<>
 			<section>
 				<Navbar />
-				<div className=" dark:bg-navy bg-blue px-50 py-5  text-center w-full h-1/2 font-pop flex flex-col">
-					<div className=" border-1 py-20 px-10 border-white">
+				<div className=" pattern  dark:bg-navy relative bg-blue px-50 items-center justify-center text-center w-full py-25  font-pop flex flex-col">
+					<div className=" py-20  px-10 ">
 						<div className="animate-appear text-white">
 							<div className="font-black text-7xl">
 								EXPLORE AMAZING EVENTS AROUND YOU!
@@ -101,25 +101,25 @@ export default function HomePage() {
 							</div>
 						</div>
 					</div>
-					<div className="flex w-full flex-col justify-center items-center gap-2 my-10 ">
-						<div className="opacity-100 text-white ">
-							OUR TRUSTED PARTNER
-						</div>
-						<img
-							src="https://res.cloudinary.com/diha0tqnn/image/upload/v1747255260/b70f1a_e15d2ec417094f66aeed8e06a27857e0_mv2_1-Photoroom_hugivp.png"
-							alt="areeb logo"
-							className="size-16 border-2 border-white"
-						/>
+				</div>
+				<div className="flex w-full flex-col justify-center items-center gap-2 mt-20  ">
+					<div className="opacity-100 dark:text-white text-blue ">
+						OUR TRUSTED PARTNER
 					</div>
+					<img
+						src="https://static.wixstatic.com/media/b70f1a_e15d2ec417094f66aeed8e06a27857e0~mv2.png"
+						alt="areeb logo"
+						className="size-20 "
+					/>
 				</div>
 				<div className="flex justify-center items-center ">
-					<div className="w-full mx-20  h-100 dark:bg-navy bg-blue flex flex-col justify-center">
+					<div className="w-full mx-20 mt-20 mb-15 rounded-4xl  h-100 dark:bg-navy bg-blue flex flex-col justify-center">
 						<div className="animate-appear2 text-white font-bold text-4xl px-10">
 							Explore. Book. Done.
 						</div>
 
-						<div className=" animate-appear2 mx-10 my-10 gap-10 flex justify-between">
-							<div className="text-white flex flex-col w-1/3 items-start justify-start  ">
+						<div className="  animate-appear2 mx-10 my-10 gap-10 flex justify-between">
+							<div className="transition-all hover:scale-102  text-white flex flex-col w-1/3 items-start justify-start  ">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
@@ -144,7 +144,7 @@ export default function HomePage() {
 								</div>
 							</div>
 
-							<div className="text-white flex flex-col w-1/3 items-start justify-start  ">
+							<div className="transition-all hover:scale-102 text-white flex flex-col w-1/3 items-start justify-start  ">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
@@ -170,7 +170,7 @@ export default function HomePage() {
 								</div>
 							</div>
 
-							<div className="text-white flex flex-col w-1/3 items-start justify-start  ">
+							<div className="transition-all hover:scale-102 text-white flex flex-col w-1/3 items-start justify-start  ">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
@@ -199,16 +199,16 @@ export default function HomePage() {
 					</div>
 				</div>
 
-				<div className="w-full h-100 px-20  mt-10">
+				<div className="w-full mt-5 px-20 ">
 					<div className="font-bold text-4xl  dark:text-white text-blue">
 						Popular Categories
 					</div>
-					<div className="flex justify-center mt-5 gap-10 dark:text-white  text-blue font-black text-5xl">
+					<div className="flex justify-center mt-5 gap-10 dark:text-white  text-blue font-bold text-xl">
 						{randomCategories.map((category) => (
 							<Link
 								to={`/events?category=${category.id}`}
 								key={category.id}
-								className=" transform transition duration-300  hover:scale-90 hover:shadow-2xl cursor-pointer w-1/4 dark:border-white h-100 border-5 flex justify-center items-center border-blue"
+								className=" transform transition duration-300  hover:scale-90 hover:shadow-2xl cursor-pointer w-1/4 dark:border-white py-2 border-2 flex justify-center items-center border-blue"
 							>
 								<div>{category.name}</div>
 							</Link>
@@ -216,13 +216,13 @@ export default function HomePage() {
 					</div>
 				</div>
 
-				<div className="w-full h-100 px-20 items-center py-20 mt-30 dark:bg-navy bg-blue ">
-					<div className="font-bold text-4xl text-white">
+				<div className="w-full px-20 items-center py-15 mt-30 dark:bg-navy bg-blue ">
+					<div className="font-bold text-4xl mb-10 text-white">
 						What People Are Saying
 					</div>
-					<div className="flex justify-between py-10 items-center gap-10 text-white ">
+					<div className="flex justify-between items-center gap-10 text-white ">
 						<div className="flex flex-col">
-							<div className="font-normal mb-3 text-3xl">
+							<div className="font-normal mb-2  text-3xl">
 								“I booked a ticket in less than a minute —
 								smoothest experience ever!”
 							</div>
@@ -236,7 +236,7 @@ export default function HomePage() {
 						</div>
 
 						<div className="flex flex-col">
-							<div className="font-normal mb-3 text-3xl">
+							<div className="font-normal mb-2 text-3xl">
 								“This platform helped me find weekend events I
 								never knew existed!”
 							</div>
@@ -272,25 +272,25 @@ export default function HomePage() {
 					</div>
 				</div>
 
-				<div className=" px-20 font-pop flex flex-col justify-center items-center gap-4 py-20 mb-10 mx-20 dark:bg-navy  bg-blue ">
-					<div className="font-bold text-4xl text-white">
+				<div className=" px-20 font-pop flex flex-col justify-center items-center gap-4 py-20 mb-40 mt-20 mx-20 dark:bg-navy border-blue border-3  bg-white ">
+					<div className="font-bold text-4xl text-blue ">
 						Ready To Go?
 					</div>
-					<div className="text-white">
+					<div className="text-blue">
 						Explore thousands of upcoming events, workshops, and
 						experiences — all in one place.
 					</div>
 					<div className="flex gap-4 font-mont items-center">
 						<Link
 							to={"/register"}
-							className="transition-all dark:text-navy dark:border-navy hover:text-white hover:border-white font-bold hover:bg-blue px-10 py-2 cursor-pointer text-blue bg-white border-1 border-blue rounded-2xl"
+							className="transition-all dark:text-navy dark:border-navy hover:border-blue hover:text-blue  font-bold hover:bg-white px-10 py-2 cursor-pointer text-white bg-blue border-1 border-blue rounded-2xl"
 						>
 							Register Now
 						</Link>
 						<div className="text-white">or</div>
 						<Link
 							to={"/events"}
-							className="transition-all hover:text-blue hover:border-white hover:bg-white px-10 py-2 cursor-pointer text-white border-1 border-white rounded-2xl"
+							className="transition-all hover:text-white  hover:border-blue hover:bg-blue px-10 py-2 cursor-pointer text-blue border-1 border-blue bg-white rounded-2xl"
 						>
 							Explore Events
 						</Link>

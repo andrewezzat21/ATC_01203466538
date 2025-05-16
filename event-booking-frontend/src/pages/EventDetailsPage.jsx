@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import EventCardWrapper from "../components/EventCardWrapper";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 export default function EventDetailsPage() {
@@ -186,6 +187,7 @@ export default function EventDetailsPage() {
 					</div>
 				</div>
 			</section>
+			<Footer />
 		</>
 	);
 }

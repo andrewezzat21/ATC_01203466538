@@ -27,20 +27,16 @@ export default function TicketsPage() {
 		<>
 			<section className="">
 				<Navbar />
-				<div className=" dark:bg-navy bg-blue px-30 pt-10 pb-10 w-full h-1/2 font-pop flex flex-col">
+				<div className=" dark:bg-navy bg-blue pattern px-15 pt-10 pb-15 w-full h-1/2 font-pop flex flex-col">
 					<div className="px-10 ">
 						<div className="animate-appear text-white">
-							<div className="font-black text-5xl">
+							<div className="font-black text-5xl mb-3">
 								My Tickets
 							</div>
-							<div className="text-xl mt-2">
+							<div>
 								Welcome Back,{" "}
 								{localStorage.getItem("firstName")}! Here are
-								your booked events.
-							</div>
-							<div className="text-xl mt-5 font-bold">
-								{" "}
-								Total Tickets : {events.length}
+								your upcoming booked events.
 							</div>
 						</div>
 					</div>
@@ -88,13 +84,13 @@ export default function TicketsPage() {
 									<div className="flex gap-4 text-sm">
 										<Link
 											to={"/events/" + event.id}
-											className="py-2 px-2 dark:bg-navy bg-blue text-white hover:bg-white hover:border-white hover:text-blue border-3 border:blue"
+											className="py-2 px-2 dark:bg-navy bg-blue text-white hover:bg-white hover:border-white hover:text-blue border-1 border:blue"
 										>
 											View Event Details
 										</Link>
 										<Link
 											to={"/cancel/" + event.id}
-											className="cursor-pointer py-2 px-2 bg-red-500 text-white hover:bg-white hover:border-white hover:text-red-500 border-3 border:red-500"
+											className="cursor-pointer py-2 px-2 bg-red-500 text-white hover:bg-white hover:border-white hover:text-red-500 border-1 border:red-500"
 										>
 											Delete Ticket
 										</Link>

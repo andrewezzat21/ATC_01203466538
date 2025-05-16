@@ -142,13 +142,13 @@ export default function AdminCard({ event, onEventUpdated, onEditClick }) {
 				<div className="flex w-full justify-between mb-2">
 					<button
 						onClick={() => onEditClick(eventDetails)}
-						className="mr-2 w-37 self-end rounded-sm bg-blue-500 text-white font-medium px-1.5 py-1 flex items-center justify-center border-blue border-1 hover:text-blue hover:border-blue hover:bg-white cursor-pointer"
+						className="mr-2 w-37 self-end rounded-sm bg-blue-500 text-white text-lg px-1.5 py-1.5 flex items-center justify-center border-blue border-1 hover:text-blue hover:border-blue hover:bg-white cursor-pointer"
 					>
 						Edit
 					</button>
 					<button
 						onClick={handleDelete}
-						className=" w-37 self-end rounded-sm bg-red-500 text-white font-medium px-1.5 flex items-center py-1 justify-center border-red-500 border-1 hover:text-red-500 hover:border-red hover:bg-white cursor-pointer"
+						className=" w-37 self-end rounded-sm bg-red-500 text-white font-bold px-1.5 flex items-center text-lg py-1.5 justify-center border-red-500 border-1 hover:text-red-500 hover:border-red hover:bg-white cursor-pointer"
 					>
 						Delete
 					</button>

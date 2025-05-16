@@ -55,8 +55,8 @@ export default function LoginPage() {
 	const togglePassword = () => setShowPassword(!showPassword);
 
 	return (
-		<div className=" w-dvw h-dvh bg-blue flex">
-			<div className="h-full animate-appear items-center bg-blue w-6/10 flex flex-col justify-center py-20">
+		<div className=" w-dvw h-dvh  bg-blue flex">
+			<div className="h-full animate-appear items-center pattern bg-blue w-6/10 flex flex-col justify-center py-20">
 				<div className="flex flex-col items-center gap-4">
 					<div className="text-white font-black font-mont text-5xl">
 						EVNT.

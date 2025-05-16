@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import Title from "./components/Title.jsx";
 import "./index.css";
 import AdminPage from "./pages/AdminPage.jsx";
 import Checkout from "./pages/Checkout.jsx";
@@ -19,51 +20,91 @@ const router = createBrowserRouter([
 		path: "/admin",
 		element: (
 			<PrivateRoute role="ADMIN">
-				<AdminPage />
+				<Title title="EVNT. | Admin Dashboard">
+					<AdminPage />
+				</Title>{" "}
 			</PrivateRoute>
 		),
 	},
 	{
 		path: "/",
-		element: <HomePage />,
+		element: (
+			<Title title="EVNT. | Discover New Events Around You">
+				<HomePage />
+			</Title>
+		),
 	},
 	{
 		path: "/error",
-		element: <ErrorPage />,
+		element: (
+			<Title title="EVNT. | Error">
+				<ErrorPage />
+			</Title>
+		),
 	},
 	{
 		path: "/success",
-		element: <SuccessPage />,
+		element: (
+			<Title title="EVNT. | Congratulations">
+				<SuccessPage />
+			</Title>
+		),
 	},
 	{
 		path: "/events",
-		element: <EventsPage />,
+		element: (
+			<Title title="EVNT. | Explore Events">
+				<EventsPage />
+			</Title>
+		),
 	},
 	{
 		path: "/login",
-		element: <LoginPage />,
+		element: (
+			<Title title="EVNT. | Sign in">
+				<LoginPage />
+			</Title>
+		),
 	},
 	{
 		path: "/register",
-		element: <RegisterPage />,
+		element: (
+			<Title title="EVNT. | Sign Up">
+				<RegisterPage />
+			</Title>
+		),
 	},
 	{
 		path: "/book/:eventId",
-		element: <Checkout />,
+		element: (
+			<Title title="EVNT. | Book Ticket">
+				<Checkout />
+			</Title>
+		),
 	},
 	{
 		path: "/cancel/:eventId",
-		element: <UnbookEvent />,
+		element: (
+			<Title title="EVNT. | Cancel Ticket">
+				<UnbookEvent />
+			</Title>
+		),
 	},
 	{
 		path: "/events/:eventId",
-		element: <EventDetailsPage />,
+		element: (
+			<Title title="EVNT. | Event Details">
+				<EventDetailsPage />
+			</Title>
+		),
 	},
 	{
 		path: "/tickets",
 		element: (
 			<PrivateRoute role="USER">
-				<TicketsPage />
+				<Title title="EVNT. | My Tickets">
+					<TicketsPage />
+				</Title>
 			</PrivateRoute>
 		),
 	},

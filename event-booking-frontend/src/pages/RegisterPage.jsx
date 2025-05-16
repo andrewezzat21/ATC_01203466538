@@ -60,7 +60,7 @@ export default function RegisterPage() {
 		setShowConfirmPassword(!showConfirmPassword);
 
 	return (
-		<div className=" w-dvw h-dvh bg-blue flex">
+		<div className=" w-dvw h-dvh  bg-blue flex">
 			<div className="h-full w-4/10 relative flex items-center justify-center">
 				<img
 					src="https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -85,7 +85,7 @@ export default function RegisterPage() {
 					</div>
 				</div>
 			</div>
-			<div className="animate-appear h-full items-center bg-blue w-6/10 flex flex-col justify-center py-20">
+			<div className="animate-appear h-full items-center pattern bg-blue w-6/10 flex flex-col justify-center py-20">
 				<div className="flex flex-col items-center gap-4">
 					<div className="text-white font-black font-mont text-5xl">
 						EVNT.

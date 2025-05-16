@@ -79,7 +79,7 @@ export default function EventsPage() {
 		<>
 			<section>
 				<Navbar />
-				<div className=" dark:bg-navy bg-blue px-15 pt-10 pb-15 w-full h-1/2 font-pop flex flex-col">
+				<div className=" dark:bg-navy pattern bg-blue px-15 pt-10 pb-15 w-full h-1/2 font-pop flex flex-col">
 					<div className="px-10 ">
 						<div className="animate-appear text-white">
 							<div className="font-black text-5xl mb-3">
@@ -93,10 +93,10 @@ export default function EventsPage() {
 					</div>
 				</div>
 
-				<div className=" bg-blue mx-30 -mt-5 mb-5 px-50 py-5 rounded-sm flex justify-between dark:bg-navy ">
+				<div className=" bg-white mb-4 mx-20 mt-10 items-center px-20 py-5 rounded-sm flex justify-between dark:bg-navy ">
 					<div className="relative w-full flex justify-center items-center ">
 						<input
-							className="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 mb-3 leading-tight focus:outline-none"
+							className="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none"
 							type="text"
 							placeholder="Search for upcoming events..."
 							onChange={(e) => setSearch(e.target.value)}
@@ -104,7 +104,7 @@ export default function EventsPage() {
 						/>
 					</div>
 
-					<div className="relative w-2/6 ml-5 mb-3 ">
+					<div className="relative w-2/6 ml-5 ">
 						<select
 							onChange={(e) =>
 								setCategoryId(Number(e.target.value) || 0)
@@ -135,7 +135,7 @@ export default function EventsPage() {
 							</svg>
 						</div>
 					</div>
-					<div className="relative w-2/6 ml-5 mb-3">
+					<div className="relative w-2/6 ml-5">
 						<select
 							onChange={(e) => setPriceFilter(e.target.value)}
 							className="w-full font-medium bg-gray-200 text-gray-700 rounded cursor-pointer appearance-none px-3 py-2 focus:outline-none"
@@ -186,29 +186,10 @@ export default function EventsPage() {
 						</div>
 					)}
 				</div>
-				<div className="w-fullfont-pop py-15 mx-30 -mb-5 bg-blue rounded-sm text-white dark:bg-navy flex flex-col px-20">
-					<div className="font-bold text-4xl">Stay connected?</div>
-					<div className="mb-4">
-						Be the first to know about new events near you.
-					</div>
-					<div className="mb-2">
-						Sign up for event alerts and personalized
-						recommendations.
-					</div>
-					<div className="flex items-center gap-4 ">
-						<input
-							className=" w-1/3 appearance-none block  bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none"
-							type="text"
-							placeholder="Enter your Email.."
-						/>
-						<button className="py-2 cursor-pointer hover:bg-white hover:text-blue font-bold px-2 border-1 border-white">
-							Sign Up Now
-						</button>
-					</div>
-				</div>
+
 				<Footer />
-				<div className="h-dvh w-10 fixed bg-blue left-0 top-0 dark:bg-navy "></div>
-				<div className="h-dvh w-10 fixed bg-blue right-0 top-0 dark:bg-navy"></div>
+				{/* <div className="h-dvh w-10 fixed bg-blue left-0 top-0 dark:bg-navy "></div> */}
+				{/* <div className="h-dvh w-10 fixed bg-blue right-0 top-0 dark:bg-navy"></div> */}
 			</section>
 		</>
 	);

@@ -55,7 +55,7 @@ export default function Checkout() {
 		<>
 			<section>
 				<Navbar />
-				<div className=" dark:bg-navy px-20  my-20 font-pop">
+				<div className="px-20  my-20 font-pop">
 					<div className="text-blue font-bold mx-40 text-3xl">
 						Are you sure?
 					</div>

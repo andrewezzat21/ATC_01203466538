@@ -45,7 +45,7 @@ export default function AdminPage() {
 
 	return (
 		<>
-			<section className="font-pop dark:bg-gray-950 ">
+			<section className="font-pop ">
 				<EventModal
 					reloadTrigger={reloadTrigger}
 					onEventUpdated={fetchEvents}
@@ -65,7 +65,7 @@ export default function AdminPage() {
 					onClose={() => setShowEditModal(false)}
 				/>
 				<Navbar />
-				<div className=" flex justify-between items-center h-40 w-full dark:bg-gray-900 pattern bg-blue px-15 py-10">
+				<div className=" flex justify-between items-center h-40 w-full pattern bg-blue px-15 py-10">
 					<div className="px-10 ">
 						<div className="animate-appear text-white">
 							<div className="font-black text-5xl mb-3">
@@ -79,7 +79,7 @@ export default function AdminPage() {
 						Total Events: {events.length}
 					</div>
 				</div>
-				<div className="  animate-appear flex gap-2 mt-5 mb-5 px-15 font-mont font-light ">
+				<div className=" animate-appear flex gap-2 mt-5 mb-5 px-15 font-mont font-light ">
 					<button
 						onClick={() => setShowEventModal(true)}
 						className="rounded-sm bg-blue text-white p-1.5 flex items-center justify-center border-blue border-1 hover:text-blue hover:border-blue hover:bg-white cursor-pointer"

@@ -84,13 +84,13 @@ export default function TicketsPage() {
 									<div className="flex gap-4 text-sm">
 										<Link
 											to={"/events/" + event.id}
-											className="py-2 px-2 dark:bg-navy bg-blue text-white hover:bg-white hover:border-white hover:text-blue border-1 border:blue"
+											className="transition-all py-2 px-2 dark:bg-navy bg-blue text-white hover:bg-white hover:border-white hover:text-blue border-1 border:blue"
 										>
 											View Event Details
 										</Link>
 										<Link
 											to={"/cancel/" + event.id}
-											className="cursor-pointer py-2 px-2 bg-red-500 text-white hover:bg-white hover:border-white hover:text-red-500 border-1 border:red-500"
+											className="transition-all cursor-pointer py-2 px-2 bg-red-500 text-white hover:bg-white hover:border-white hover:text-red-500 border-1 border:red-500"
 										>
 											Delete Ticket
 										</Link>

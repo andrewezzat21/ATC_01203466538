@@ -52,7 +52,7 @@ export default function UnbookEvent() {
 		<>
 			<section>
 				<Navbar />
-				<div className=" dark:bg-navy px-20  my-20 font-pop">
+				<div className="px-20  my-20 font-pop">
 					<div className="text-blue font-bold mx-40 text-3xl">
 						Are you sure?
 					</div>
@@ -60,7 +60,7 @@ export default function UnbookEvent() {
 						You are about to cancel your ticket for this event
 					</div>
 
-					<div className="font-pop mx-40 mt-5  flex  rounded-xl h-40 items-center dark:bg-gray-800 dark:text-white bg-blue text-white">
+					<div className="font-pop mx-40 mt-5  flex  rounded-xl dark:bg-gray-800 h-40 items-center dark:text-white bg-blue text-white">
 						<div className="w-50 h-full">
 							<img
 								src={eventDetails.image}

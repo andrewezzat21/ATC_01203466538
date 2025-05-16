@@ -272,18 +272,18 @@ export default function HomePage() {
 					</div>
 				</div>
 
-				<div className=" px-20 font-pop flex flex-col justify-center items-center gap-4 py-20 mb-40 mt-20 mx-20 dark:bg-navy border-blue border-3  bg-white ">
-					<div className="font-bold text-4xl text-blue ">
+				<div className=" px-20 font-pop flex flex-col justify-center items-center gap-4 py-20 mb-40 mt-20 mx-20 dark:border-white  dark:bg-navy border-blue border-3  bg-white ">
+					<div className="font-bold text-4xl dark:text-white text-blue ">
 						Ready To Go?
 					</div>
-					<div className="text-blue">
+					<div className="text-blue dark:text-white">
 						Explore thousands of upcoming events, workshops, and
 						experiences — all in one place.
 					</div>
 					<div className="flex gap-4 font-mont items-center">
 						<Link
 							to={"/register"}
-							className="transition-all dark:text-navy dark:border-navy hover:border-blue hover:text-blue  font-bold hover:bg-white px-10 py-2 cursor-pointer text-white bg-blue border-1 border-blue rounded-2xl"
+							className="transition-all dark:text-white dark:border-navy hover:border-blue hover:text-blue  font-bold hover:bg-white px-10 py-2 cursor-pointer text-white bg-blue border-1 border-blue rounded-2xl"
 						>
 							Register Now
 						</Link>

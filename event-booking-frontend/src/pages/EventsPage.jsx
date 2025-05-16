@@ -93,7 +93,7 @@ export default function EventsPage() {
 					</div>
 				</div>
 
-				<div className=" bg-white mb-4 mx-20 mt-10 items-center px-20 py-5 rounded-sm flex justify-between dark:bg-navy ">
+				<div className=" bg-white mb-4 mx-20 mt-10 items-center px-20 py-5 rounded-sm flex justify-between dark:bg-gray-800 ">
 					<div className="relative w-full flex justify-center items-center ">
 						<input
 							className="appearance-none block w-full bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none"

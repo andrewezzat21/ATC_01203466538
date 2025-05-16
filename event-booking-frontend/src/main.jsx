@@ -108,6 +108,14 @@ const router = createBrowserRouter([
 			</PrivateRoute>
 		),
 	},
+	{
+		path: "*",
+		element: (
+			<Title title="EVNT. | Page Not Found!">
+				<ErrorPage />
+			</Title>
+		),
+	},
 ]);
 
 createRoot(document.getElementById("root")).render(

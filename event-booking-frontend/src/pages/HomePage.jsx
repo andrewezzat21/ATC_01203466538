@@ -25,7 +25,7 @@ export default function HomePage() {
 								index ===
 								self.findIndex((c) => c.id === category.id)
 						)
-						.slice(0, 4)
+						.slice(0, 5)
 				);
 			} catch (error) {
 				console.error("Error fetching events:", error);

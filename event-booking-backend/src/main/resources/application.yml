@@ -2,12 +2,15 @@ spring:
   application:
     name: event-booking-backend
   datasource:
-    url: jdbc:mysql://localhost:3307/demo_ebs_db
+    url: jdbc:mysql://localhost:3306/db
     username: root
-    password: demopassword
+    password: Password
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+  sql:
+    init:
+      mode: ALWAYS
 
 #logging:
 #  level:

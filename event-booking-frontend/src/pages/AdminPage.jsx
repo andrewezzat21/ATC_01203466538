@@ -79,7 +79,7 @@ export default function AdminPage() {
 						Total Events: {events.length}
 					</div>
 				</div>
-				<div className=" animate-appear flex gap-2 mt-5 mb-5 px-15 font-mont font-light ">
+				<div className=" animate-appear flex gap-2 mt-5 mb-5 px-25 font-mont font-light ">
 					<button
 						onClick={() => setShowEventModal(true)}
 						className="rounded-sm bg-blue text-white p-1.5 flex items-center justify-center border-blue border-1 hover:text-blue hover:border-blue hover:bg-white cursor-pointer"
@@ -98,7 +98,7 @@ export default function AdminPage() {
 						No events found.
 					</div>
 				)}
-				<div className="animate-appear min-h-100 z-0 dark:inset-shadow-none inset-shadow-sm inset-shadow-gray-500 py-10 justify-between grid grid-cols-3 gap-y-0 place-items-center w-full px-25">
+				<div className="animate-appear min-h-100 z-0  py-10 justify-between grid grid-cols-3 gap-y-0 place-items-center w-full px-25">
 					{events.map((event, index) => (
 						<AdminCard
 							onEditClick={onEditClick}

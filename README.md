@@ -1,9 +1,9 @@
-<h1 align="center">EVNT. | Event Booking Website</h1>
+<h1 align="center">EVNT. | Event Booking Web Application</h1>
 <img width="1440" alt="Screenshot 2025-05-17 at 3 46 54 AM" src="https://github.com/user-attachments/assets/1aa7df1c-cafb-491f-a725-8b507ae64de5" />
 
 # 📚 Table of Contents
 
-- [Video Tutorial](#video-tutorial)
+- [Video Demo](#video-demo)
 - [Introduction](#introduction)
 - [Overview](#overview)
 - [Installation](#installation)
@@ -30,8 +30,13 @@
   - [Screenshots](#screenshots)
 
 
- # Introduction
-Hello 👋 I'm **Andrew Ezzat**, and this is my submission for the **Areeb Technology Competition**. I’ve built an **Event Booking Website** that covers both user and admin functionalities, and I hope you enjoy exploring it as much as I enjoyed building it!
+# Video Demo
+https://www.youtube.com/watch?v=X8dXMqcOCzI
+
+---
+
+# Introduction
+Hello 👋 I'm **Andrew Ezzat**, and this is my submission for the **Areeb Technology Competition**. I’ve built an **Event Booking Web Application** that covers both user and admin functionalities, and I hope you enjoy exploring it as much as I enjoyed building it
 
 ---
 ## Overview
@@ -221,7 +226,9 @@ Response data
 ### Categories Endpoints
 
 GET | `/categories` | Get all categories
+
 GET | `/categories/{id}` | Get category by id
+
 GET | `/categories/{id}/events` | Get events by category id
 
 POST | `/categories` | Create new category
@@ -233,6 +240,7 @@ Request Body
 ```
 
 PUT | `/categories/{id}` | Edit category by id
+
 Request Body
 ```
 {
@@ -245,11 +253,15 @@ DELETE | `/categories/{id}` | Delete category by id
 ### Events Endpoints
 
 GET | `/events` | Get all events
+
 GET | `/events/{id}` | Get event by id
+
 GET | `/events/details` | Get all events details
+
 GET | `/events/{id}/details` | Get all event details by id
 
 POST | `/events` | Create new event
+
 Request Body
 ```
 {
@@ -265,6 +277,7 @@ Request Body
 ```
 
 PUT | `/events/{id}` | Edit event by id
+
 Request Body
 ```
 {
@@ -280,9 +293,11 @@ Request Body
 ```
 
 DELETE | `/events/{id}` | Delete event by id
+
 ### Tickets Endpoints
 
 GET | `/tickets/user/{id}` | Get all tickets of user
+
 GET | `/tickets/event/{id}` | Get all users of an event
 
 POST | `/tickets` | Create new ticket
@@ -306,9 +321,9 @@ I didn't use any UI Component library like shadcn or anything similar, I've trie
 
 Although I don't consider myself as a frontend engineer, (I'm more of a backend person 😅) I tried my best in making a nice user experience and a clean user interface, but to be honest the code quality is not that great because I'm not very familiar with the frontend best practices :'(
 
-```
-IMPORTANT NOTE: I really hope you like the color blue because you will be seeing a lot of it 😅💙 The branding is inspired by Areeb Technology’s logo. And dark mode is available, featuring a more navy-toned palette
-```
+
+`IMPORTANT NOTE: I really hope you like the color blue because you will be seeing a lot of it 😅💙 The branding is inspired by Areeb Technology’s logo. And dark mode is 	available, featuring a more navy-toned palette`
+
 
 ### Website Routes
 
@@ -335,7 +350,7 @@ Here are some screenshots from the website
 <img width="1440" alt="Screenshot 2025-05-17 at 3 50 45 AM" src="https://github.com/user-attachments/assets/dcea10fc-6470-4cb2-b292-c297b40cdeb9" />
 <img width="1440" alt="Screenshot 2025-05-17 at 3 50 26 AM" src="https://github.com/user-attachments/assets/eaf5eea9-3c6d-418e-b5c8-727a3b9de2cb" />
 <img width="1440" alt="Screenshot 2025-05-17 at 3 50 59 AM" src="https://github.com/user-attachments/assets/68200025-a6d3-4c84-9f00-5455dae2fa78" />
-<img width="1440" alt="Screenshot 2025-05-17 at 3 51 15 AM" src="https://github.com/user-attachments/assets/9a8bdd99-51a0-403e-b189-757010a02a45" />
+<img width="1440" alt="Screenshot 2025-05-17 at 5 38 54 AM" src="https://github.com/user-attachments/assets/886dcbab-10fe-48a2-b8bd-a650395de8f2" />
 <img width="1440" alt="Screenshot 2025-05-17 at 3 53 25 AM" src="https://github.com/user-attachments/assets/e58544ba-2c6e-423a-b792-da7abb85f640" />
 <img width="1440" alt="Screenshot 2025-05-17 at 3 53 59 AM" src="https://github.com/user-attachments/assets/501bbede-26eb-4b6b-ae0f-4f9dfe6b6fd0" />
 

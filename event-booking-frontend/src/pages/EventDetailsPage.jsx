@@ -62,7 +62,7 @@ export default function EventDetailsPage() {
 	return (
 		<>
 			<Navbar />
-			<div className="h-100 w-full -z-10 top-0 dark:bg-navy bg-blue sticky"></div>
+			<div className="h-100 w-full -z-10 top-0 dark:bg-navy pattern bg-blue sticky"></div>
 			<section className=" animate-appear -mt-40 pb-50 px-30 font-pop">
 				<div className="w-full flex justify-between h-150 dark:bg-navy bg-blue ">
 					<div className="  w-1/2 h-full ">

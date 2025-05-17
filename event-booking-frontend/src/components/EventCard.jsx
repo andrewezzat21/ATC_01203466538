@@ -22,7 +22,7 @@ export default function AdminCard({ event }) {
 	}
 
 	return (
-		<div className=" dark:text-white font-pop my-5 h-110 w-90 border-0 rounded-lg relative overflow-hidden shadow-sm">
+		<div className=" dark:text-white font-pop my-5 h-120 w-90 border-0 rounded-lg relative overflow-hidden shadow-sm">
 			<div className="bg-black h-1/2">
 				<img
 					src={eventDetails.image}
